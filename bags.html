@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B1F3B" />
+  <link rel="manifest" href="manifest.json">
+  <title>Ignite Aviation — Bags</title>
+
+  <style>
+    :root{
+      --navy:#0B1F3B;
+      --navy-2:#0A1730;
+      --bg:#0f172a0d;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#5b6678;
+      --border:#e6e8ee;
+      --green:#166534;
+      --amber:#92400e;
+      --red:#991b1b;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .topbar{
+      background:linear-gradient(180deg,var(--navy),var(--navy-2));
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      min-height:72px;
+      padding:10px 14px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:240px; }
+    .rv-icon{
+      width:44px;height:44px;
+      display:grid;place-items:center;
+      border-radius:12px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand-title{ font-weight:800; font-size:20px; line-height:1; }
+    .brand-sub{ font-size:12px; opacity:.85; margin-top:2px; }
+    .nav{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .nav-link{
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+    }
+    .nav-link:hover{ background:rgba(255,255,255,.12); }
+    .wrap{ max-width:1100px; margin:18px auto 48px; padding:0 16px; }
+    .panel,.card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 10px 24px rgba(15,23,42,.06);
+    }
+    .panel{ padding:16px; }
+    .muted{ color:var(--muted); margin:0 0 14px; }
+    .bar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    input,select{
+      padding:12px;
+      font-size:16px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      outline:none;
+      background:#fff;
+    }
+    input{ flex:1; min-width:240px; }
+    .card{ padding:14px; margin-top:14px; }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:12px;
+    }
+    th,td{
+      text-align:left;
+      padding:10px;
+      border-bottom:1px solid #eef0f5;
+      vertical-align:top;
+    }
+    th{
+      background:#f7f9fc;
+      color:#1f2937;
+      font-weight:800;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.4px;
+    }
+    .pill{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      background:rgba(11,31,59,.08);
+      border:1px solid rgba(11,31,59,.14);
+      color:var(--navy);
+      font-weight:700;
+    }
+    .badge{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+    }
+    .badge.instock{ background:#dcfce7; color:var(--green); }
+    .badge.partial{ background:#fef3c7; color:var(--amber); }
+    .badge.missing{ background:#fee2e2; color:var(--red); }
+    .small{ font-size:13px; color:var(--muted); }
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 720px){
+      .wrap{ padding:0 12px; margin:14px auto 40px; }
+      input,select{ width:100%; }
+    }
+    @media (max-width: 760px){
+      table, thead, tbody, th, td, tr{ display:block; width:100%; }
+      thead{ display:none; }
+      tr{
+        border:1px solid #eef0f5;
+        border-radius:14px;
+        padding:10px 10px 6px;
+        margin:10px 0;
+        background:#fff;
+      }
+      td{
+        border:none;
+        padding:8px 4px;
+        display:flex;
+        justify-content:space-between;
+        gap:10px;
+      }
+      td::before{
+        content: attr(data-label);
+        font-weight:800;
+        color:#334155;
+        text-transform:uppercase;
+        letter-spacing:.3px;
+        font-size:12px;
+        flex:0 0 38%;
+      }
+    }
+      /* Photo modal styles */
+      .photo-modal.hidden{
+        display:none;
+      }
+      .photo-modal{
+        position:fixed;
+        inset:0;
+        z-index:9999;
+      }
+      .photo-backdrop{
+        position:absolute;
+        inset:0;
+        background:rgba(0,0,0,.7);
+      }
+      .photo-dialog{
+        position:relative;
+        z-index:1;
+        width:min(92vw, 1000px);
+        max-height:90vh;
+        margin:5vh auto;
+        background:#fff;
+        border-radius:16px;
+        padding:14px;
+        box-shadow:0 20px 60px rgba(0,0,0,.35);
+      }
+      .photo-dialog img{
+        display:block;
+        width:100%;
+        max-height:80vh;
+        object-fit:contain;
+        border-radius:12px;
+        background:#f8fafc;
+      }
+      .photo-close{
+        position:absolute;
+        top:10px;
+        right:10px;
+        width:auto;
+        padding:8px 12px;
+        border:none;
+        border-radius:999px;
+        background:#0B1F3B;
+        color:#fff;
+        font-weight:800;
+        cursor:pointer;
+      }
+      .photo-preview-btn{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:8px 12px;
+        border-radius:12px;
+        border:1px solid rgba(11,31,59,.18);
+        background:rgba(11,31,59,.06);
+        color:#0B1F3B;
+        font-weight:800;
+        text-decoration:none;
+        cursor:pointer;
+      }
+      .photo-preview-btn:hover{
+        background:rgba(11,31,59,.10);
+      }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="rv-icon">
+        <img src="icon.PNG" alt="RV-12iS Icon" width="34" height="34" style="width:34px;height:34px;object-fit:contain;" />
+      </div>
+      <div>
+        <div class="brand-title">Ignite Aviation</div>
+        <div class="brand-sub">RV-12iS Tools</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+  <a class="nav-link" href="index.html">Parts Finder</a>
+  <a class="nav-link" href="bags.html">Bags</a>
+  <a class="nav-link" href="tools.html">Tools</a>
+  <a class="nav-link" href="manuals.html">Manuals</a>
+  <a class="nav-link" href="admin.html">Admin</a>
+</nav>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <p class="muted">Track which bags you have, where they are stored, and what still needs to be found.</p>
+
+      <div class="bar">
+        <input id="bagSearch" placeholder="Search bag, section, location..." />
+        <select id="statusFilter">
+          <option value="">All statuses</option>
+          <option value="In Stock">In Stock</option>
+          <option value="Partial">Partial</option>
+          <option value="Missing">Missing</option>
+        </select>
+      </div>
+    </section>
+
+    <div id="results"></div>
+    <footer>Ignite Aviation • Bag tracker</footer>
+  </main>
+
+<script>
+  const API = "https://script.google.com/macros/s/AKfycbyycN9RYSSrKidhr42pSM7Koh7FCMjtftYLS30py08yNHGmjKpZkrVjyOtX8F6z-HU9Ow/exec";
+  let allBags = [];
+
+  function esc(s){
+    return String(s ?? "").replace(/[&<>"']/g, m => (
+      {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]
+    ));
+  }
+
+  function statusClass(status){
+    const s = String(status || "").toLowerCase();
+    if (s.includes("missing")) return "missing";
+    if (s.includes("partial")) return "partial";
+    return "instock";
+  }
+
+  function renderRows(rows){
+    const results = document.getElementById("results");
+
+    if (!rows.length) {
+      results.innerHTML = `<div class="card">No bags match your filters.</div>`;
+      return;
+    }
+
+    const html = rows.map(b => `
+      <tr>
+        <td data-label="Bag"><span class="pill">${esc(b.bag)}</span></td>
+        <td data-label="Section">${esc(b.section || "—")}</td>
+        <td data-label="Status"><span class="badge ${statusClass(b.status)}">${esc(b.status || "Unknown")}</span></td>
+        <td data-label="Location">${esc(b.location || "—")}</td>
+        <td data-label="Photo">
+  ${b.photoUrl ? `<button class="photo-preview-btn" type="button" data-photo="${esc(b.photoUrl)}">View Photo</button>` : "—"}
+</td>
+        <td data-label="Updated">${esc(b.updatedAt || "—")}</td>
+        <td data-label="Updated By">${esc(b.updatedBy || "—")}</td>
+        <td data-label="Notes">${esc(b.notes || "—")}</td>
+      </tr>
+    `).join("");
+
+    results.innerHTML = `
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Bag</th>
+              <th>Section</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Photo</th>
+              <th>Updated</th>
+              <th>Updated By</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>${html}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function applyFilters(){
+    const q = document.getElementById("bagSearch").value.trim().toLowerCase();
+    const statusFilter = document.getElementById("statusFilter").value;
+
+    const filtered = allBags.filter(b => {
+      const matchesText =
+        !q ||
+        String(b.bag || "").toLowerCase().includes(q) ||
+        String(b.section || "").toLowerCase().includes(q) ||
+        String(b.location || "").toLowerCase().includes(q);
+
+      const matchesStatus =
+        !statusFilter ||
+        String(b.status || "") === statusFilter;
+
+      return matchesText && matchesStatus;
+    });
+
+    renderRows(filtered);
+  }
+
+  async function loadBags(){
+    try {
+      const res = await fetch(`${API}?action=bags`);
+      const data = await res.json();
+
+      if (!data.ok) {
+        document.getElementById("results").innerHTML = `<div class="card">Error: ${esc(data.error || "Could not load bags")}</div>`;
+        return;
+      }
+
+      allBags = data.bags || [];
+      applyFilters();
+    } catch (err) {
+      console.error(err);
+      document.getElementById("results").innerHTML = `<div class="card">Failed to load bags.</div>`;
+    }
+  }
+
+  document.getElementById("bagSearch").addEventListener("input", applyFilters);
+  document.getElementById("statusFilter").addEventListener("change", applyFilters);
+
+  loadBags();
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const photoModal = document.getElementById("photoModal");
+    const photoModalImg = document.getElementById("photoModalImg");
+    const photoClose = document.getElementById("photoClose");
+    const photoBackdrop = document.getElementById("photoBackdrop");
+
+    function openPhotoModal(url) {
+      if (!photoModalImg || !photoModal) return;
+      photoModalImg.src = url;
+      photoModal.classList.remove("hidden");
+    }
+
+    function closePhotoModal() {
+      if (!photoModalImg || !photoModal) return;
+      photoModalImg.src = "";
+      photoModal.classList.add("hidden");
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".photo-preview-btn");
+      if (btn) {
+        openPhotoModal(btn.dataset.photo);
+      }
+    });
+
+    if (photoClose) photoClose.addEventListener("click", closePhotoModal);
+    if (photoBackdrop) photoBackdrop.addEventListener("click", closePhotoModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closePhotoModal();
+    });
+  });
+  </script>
+  <div id="photoModal" class="photo-modal hidden">
+    <div class="photo-backdrop" id="photoBackdrop"></div>
+    <div class="photo-dialog">
+      <button id="photoClose" class="photo-close" type="button">✕</button>
+      <img id="photoModalImg" src="" alt="Last seen photo" />
+    </div>
+  </div>
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B1F3B" />
+  <title>Ignite Aviation — Admin</title>
+
+  <style>
+    :root{
+      --navy:#0B1F3B;
+      --navy-2:#0A1730;
+      --bg:#0f172a0d;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#5b6678;
+      --border:#e6e8ee;
+      --focus:#86b7ff;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .topbar{
+      background:linear-gradient(180deg,var(--navy),var(--navy-2));
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      min-height:72px;
+      padding:10px 14px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:240px; }
+    .rv-icon{
+      width:44px;height:44px;
+      display:grid;place-items:center;
+      border-radius:12px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand-title{ font-weight:800; font-size:20px; line-height:1; }
+    .brand-sub{ font-size:12px; opacity:.85; margin-top:2px; }
+    .nav{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .nav-link{
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+    }
+    .nav-link:hover{ background:rgba(255,255,255,.12); }
+
+    .wrap{ max-width:980px; margin:24px auto; padding:0 16px; }
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      box-shadow:0 10px 24px rgba(15,23,42,.06);
+      margin-bottom:16px;
+    }
+    h1,h2,h3{ margin-top:0; }
+    .muted{ color:var(--muted); }
+    .grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns:1fr 1fr;
+    }
+    .full{ grid-column:1 / -1; }
+    .tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:16px;
+    }
+    .tab-btn{
+      width:auto;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--text);
+      cursor:pointer;
+      font-weight:800;
+    }
+    .tab-btn.active{
+      background:var(--navy);
+      color:#fff;
+      border-color:var(--navy);
+    }
+    label{
+      display:block;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+    input,select,textarea,button{
+      width:100%;
+      padding:12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      font:inherit;
+      outline:none;
+      background:#fff;
+    }
+    textarea{
+      min-height:96px;
+      resize:vertical;
+    }
+    input:focus,select:focus,textarea:focus,button:focus{
+      box-shadow:0 0 0 4px rgba(134,183,255,.30);
+      border-color:var(--focus);
+    }
+    button{
+      background:var(--navy);
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button:hover{ filter:brightness(1.05); }
+    .secondary{
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+    .hidden{ display:none; }
+    .status{
+      margin-top:10px;
+      font-size:14px;
+      color:#334155;
+      white-space:pre-wrap;
+    }
+    .helper{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:4px;
+    }
+    .section-box{
+      border:1px solid #eef0f5;
+      border-radius:14px;
+      padding:14px;
+      margin-top:12px;
+      background:#fafbfe;
+    }
+    .preview-link{
+      font-size:13px;
+      margin-top:8px;
+      display:block;
+    }
+    @media (max-width:700px){
+      .grid{ grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="rv-icon">
+        <img src="icon.PNG" alt="RV-12iS Icon" width="34" height="34" style="width:34px;height:34px;object-fit:contain;" />
+      </div>
+      <div>
+        <div class="brand-title">Ignite Aviation</div>
+        <div class="brand-sub">RV-12iS Admin</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-link" href="index.html">Parts Finder</a>
+      <a class="nav-link" href="bags.html">Bags</a>
+      <a class="nav-link" href="tools.html">Tools</a>
+      <a class="nav-link" href="manuals.html">Manuals</a>
+      <a class="nav-link" href="admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="card" id="loginCard">
+      <h1>Admin Login</h1>
+      <p class="muted">Enter the admin password to add or update bags and tools.</p>
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Enter password" />
+
+      <button id="loginBtn" style="margin-top:12px;">Unlock Admin</button>
+      <div class="status" id="loginStatus"></div>
+    </section>
+
+    <section class="card hidden" id="adminCard">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">
+        <div>
+          <h2>Admin</h2>
+          <p class="muted" style="margin:0;">Add or update bags and tools with a last-seen photo.</p>
+        </div>
+        <button id="logoutBtn" class="secondary" type="button" style="width:auto;">Log Out</button>
+      </div>
+
+      <div class="tabs" style="margin-top:16px;">
+        <button class="tab-btn active" data-tab="bagsTab" type="button">Bags</button>
+        <button class="tab-btn" data-tab="toolsTab" type="button">Tools</button>
+      </div>
+
+      <div id="bagsTab">
+        <div class="section-box">
+          <h3>Add New Bag</h3>
+          <div class="grid">
+            <div class="full">
+              <label for="addBag_bag">Bag</label>
+              <input id="addBag_bag" placeholder="Example: Bag 17" />
+            </div>
+
+            <div>
+              <label for="addBag_section">Section</label>
+              <input id="addBag_section" placeholder="Example: Wing Skins" />
+            </div>
+
+            <div>
+              <label for="addBag_status">Status</label>
+              <select id="addBag_status">
+                <option value="In Stock">In Stock</option>
+                <option value="Empty">Empty</option>
+                <option value="Missing">Missing</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="addBag_location">Location</label>
+              <input id="addBag_location" placeholder="Optional short text location" />
+            </div>
+
+            <div>
+              <label for="addBag_updatedBy">Updated By</label>
+              <input id="addBag_updatedBy" placeholder="Name or initials" />
+            </div>
+
+            <div class="full">
+              <label for="addBag_photo">Last Seen Photo</label>
+              <input id="addBag_photo" type="file" accept="image/*" />
+              <div class="helper">Choose a photo of where the bag was last seen.</div>
+              <a id="addBag_photoLink" class="preview-link hidden" target="_blank" rel="noopener">Open uploaded photo</a>
+            </div>
+
+            <div class="full">
+              <label for="addBag_notes">Notes</label>
+              <textarea id="addBag_notes" placeholder="Any notes about this bag..."></textarea>
+            </div>
+
+            <div class="full">
+              <button id="addBagBtn" type="button">Add Bag</button>
+            </div>
+          </div>
+          <div class="status" id="addBagStatus"></div>
+        </div>
+
+        <div class="section-box">
+          <h3>Update Existing Bag</h3>
+          <div class="grid">
+            <div class="full">
+              <label for="updateBag_bag">Bag</label>
+              <input id="updateBag_bag" placeholder="Example: Bag 17" />
+            </div>
+
+            <div>
+              <label for="updateBag_section">Section</label>
+              <input id="updateBag_section" placeholder="Example: Wing Skins" />
+            </div>
+
+            <div>
+              <label for="updateBag_status">Status</label>
+              <select id="updateBag_status">
+                <option value="In Stock">In Stock</option>
+                <option value="Empty">Empty</option>
+                <option value="Missing">Missing</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="updateBag_location">Location</label>
+              <input id="updateBag_location" placeholder="Optional short text location" />
+            </div>
+
+            <div>
+              <label for="updateBag_updatedBy">Updated By</label>
+              <input id="updateBag_updatedBy" placeholder="Name or initials" />
+            </div>
+
+            <div class="full">
+              <label for="updateBag_photo">Last Seen Photo</label>
+              <input id="updateBag_photo" type="file" accept="image/*" />
+              <div class="helper">Choose a new photo only if you want to replace the existing last-seen photo.</div>
+              <a id="updateBag_photoLink" class="preview-link hidden" target="_blank" rel="noopener">Open uploaded photo</a>
+            </div>
+
+            <div class="full">
+              <label for="updateBag_notes">Notes</label>
+              <textarea id="updateBag_notes" placeholder="Found on shelf, moved to rack, etc."></textarea>
+            </div>
+
+            <div class="full">
+              <button id="updateBagBtn" type="button">Update Bag</button>
+            </div>
+          </div>
+          <div class="status" id="updateBagStatus"></div>
+        </div>
+      </div>
+
+      <div id="toolsTab" class="hidden">
+        <div class="section-box">
+          <h3>Add New Tool</h3>
+          <div class="grid">
+            <div class="full">
+              <label for="addTool_name">Tool Name</label>
+              <input id="addTool_name" placeholder="Example: Torque Wrench" />
+            </div>
+
+            <div>
+              <label for="addTool_category">Category</label>
+              <input id="addTool_category" placeholder="Example: Measuring" />
+            </div>
+
+            <div>
+              <label for="addTool_status">Status</label>
+              <select id="addTool_status">
+                <option value="Available">Available</option>
+                <option value="In Use">In Use</option>
+                <option value="Missing">Missing</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="addTool_location">Location</label>
+              <input id="addTool_location" placeholder="Optional short text location" />
+            </div>
+
+            <div>
+              <label for="addTool_updatedBy">Updated By</label>
+              <input id="addTool_updatedBy" placeholder="Name or initials" />
+            </div>
+
+            <div class="full">
+              <label for="addTool_photo">Last Seen Photo</label>
+              <input id="addTool_photo" type="file" accept="image/*" />
+              <div class="helper">Choose a photo of where the tool was last seen.</div>
+              <a id="addTool_photoLink" class="preview-link hidden" target="_blank" rel="noopener">Open uploaded photo</a>
+            </div>
+
+            <div class="full">
+              <label for="addTool_notes">Notes</label>
+              <textarea id="addTool_notes" placeholder="Any notes about this tool..."></textarea>
+            </div>
+
+            <div class="full">
+              <button id="addToolBtn" type="button">Add Tool</button>
+            </div>
+          </div>
+          <div class="status" id="addToolStatus"></div>
+        </div>
+
+        <div class="section-box">
+          <h3>Update Existing Tool</h3>
+          <div class="grid">
+            <div class="full">
+              <label for="updateTool_name">Tool Name</label>
+              <input id="updateTool_name" placeholder="Example: Torque Wrench" />
+            </div>
+
+            <div>
+              <label for="updateTool_category">Category</label>
+              <input id="updateTool_category" placeholder="Example: Measuring" />
+            </div>
+
+            <div>
+              <label for="updateTool_status">Status</label>
+              <select id="updateTool_status">
+                <option value="Available">Available</option>
+                <option value="In Use">In Use</option>
+                <option value="Missing">Missing</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="updateTool_location">Location</label>
+              <input id="updateTool_location" placeholder="Optional short text location" />
+            </div>
+
+            <div>
+              <label for="updateTool_updatedBy">Updated By</label>
+              <input id="updateTool_updatedBy" placeholder="Name or initials" />
+            </div>
+
+            <div class="full">
+              <label for="updateTool_photo">Last Seen Photo</label>
+              <input id="updateTool_photo" type="file" accept="image/*" />
+              <div class="helper">Choose a new photo only if you want to replace the existing last-seen photo.</div>
+              <a id="updateTool_photoLink" class="preview-link hidden" target="_blank" rel="noopener">Open uploaded photo</a>
+            </div>
+
+            <div class="full">
+              <label for="updateTool_notes">Notes</label>
+              <textarea id="updateTool_notes" placeholder="Moved to another drawer, checked out, etc."></textarea>
+            </div>
+
+            <div class="full">
+              <button id="updateToolBtn" type="button">Update Tool</button>
+            </div>
+          </div>
+          <div class="status" id="updateToolStatus"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const API = "https://script.google.com/macros/s/AKfycbyycN9RYSSrKidhr42pSM7Koh7FCMjtftYLS30py08yNHGmjKpZkrVjyOtX8F6z-HU9Ow/exec";
+    const CLOUDINARY_CLOUD_NAME = "Riley49";
+    const CLOUDINARY_UPLOAD_PRESET = "Guzzlord";
+
+    let adminToken = localStorage.getItem("adminToken") || "";
+
+    const loginCard = document.getElementById("loginCard");
+    const adminCard = document.getElementById("adminCard");
+    const loginStatus = document.getElementById("loginStatus");
+
+    function showLoggedIn() {
+      loginCard.classList.add("hidden");
+      adminCard.classList.remove("hidden");
+    }
+
+    function showLoggedOut() {
+      loginCard.classList.remove("hidden");
+      adminCard.classList.add("hidden");
+    }
+
+    if (adminToken) showLoggedIn();
+    else showLoggedOut();
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("bagsTab").classList.add("hidden");
+        document.getElementById("toolsTab").classList.add("hidden");
+        document.getElementById(btn.dataset.tab).classList.remove("hidden");
+      });
+    });
+
+    async function uploadToCloudinary(file) {
+      if (!file) return "";
+
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      console.log("Cloudinary response:", data);
+
+      if (!data.secure_url) {
+        throw new Error(data.error?.message || "Cloudinary upload failed");
+      }
+
+      return data.secure_url;
+    }
+
+    async function postJSON(payload) {
+      const res = await fetch(API, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+
+      const raw = await res.text();
+      console.log("Apps Script raw response:", raw);
+      return JSON.parse(raw);
+    }
+
+    async function login() {
+      const password = document.getElementById("password").value.trim();
+
+      if (!password) {
+        loginStatus.textContent = "Enter a password.";
+        return;
+      }
+
+      loginStatus.textContent = "Checking password...";
+
+      try {
+        const data = await postJSON({
+          action: "login",
+          password
+        });
+
+        if (!data.ok) {
+          loginStatus.textContent = data.error || "Login failed";
+          return;
+        }
+
+        adminToken = data.token;
+        localStorage.setItem("adminToken", adminToken);
+        document.getElementById("password").value = "";
+        loginStatus.textContent = "Login successful.";
+        showLoggedIn();
+      } catch (err) {
+        console.error(err);
+        loginStatus.textContent = "Login request failed.";
+      }
+    }
+
+    function showUploadedLink(linkId, url) {
+      const link = document.getElementById(linkId);
+      if (!link) return;
+
+      if (url) {
+        link.href = url;
+        link.classList.remove("hidden");
+      } else {
+        link.href = "";
+        link.classList.add("hidden");
+      }
+    }
+
+    async function addBag() {
+      const statusEl = document.getElementById("addBagStatus");
+      statusEl.textContent = "Uploading photo and saving...";
+
+      try {
+        const file = document.getElementById("addBag_photo").files[0];
+        const photoUrl = file ? await uploadToCloudinary(file) : "";
+
+        showUploadedLink("addBag_photoLink", photoUrl);
+
+        const data = await postJSON({
+          action: "addBag",
+          token: adminToken,
+          bag: document.getElementById("addBag_bag").value.trim(),
+          section: document.getElementById("addBag_section").value.trim(),
+          status: document.getElementById("addBag_status").value,
+          location: document.getElementById("addBag_location").value.trim(),
+          notes: document.getElementById("addBag_notes").value.trim(),
+          photoUrl: photoUrl,
+          updatedBy: document.getElementById("addBag_updatedBy").value.trim()
+        });
+
+        statusEl.textContent = data.ok ? "Bag added." : (data.error || "Add bag failed");
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Add bag request failed.";
+      }
+    }
+
+    async function updateBag() {
+      const statusEl = document.getElementById("updateBagStatus");
+      statusEl.textContent = "Uploading photo and saving...";
+
+      try {
+        const file = document.getElementById("updateBag_photo").files[0];
+        const photoUrl = file ? await uploadToCloudinary(file) : "";
+
+        showUploadedLink("updateBag_photoLink", photoUrl);
+
+        const data = await postJSON({
+          action: "updateBag",
+          token: adminToken,
+          bag: document.getElementById("updateBag_bag").value.trim(),
+          section: document.getElementById("updateBag_section").value.trim(),
+          status: document.getElementById("updateBag_status").value,
+          location: document.getElementById("updateBag_location").value.trim(),
+          notes: document.getElementById("updateBag_notes").value.trim(),
+          photoUrl: photoUrl,
+          updatedBy: document.getElementById("updateBag_updatedBy").value.trim()
+        });
+
+        statusEl.textContent = data.ok
+          ? (data.created ? "Bag created." : "Bag updated.")
+          : (data.error || "Update bag failed");
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Update bag request failed.";
+      }
+    }
+
+    async function addTool() {
+      const statusEl = document.getElementById("addToolStatus");
+      statusEl.textContent = "Uploading photo and saving...";
+
+      try {
+        const file = document.getElementById("addTool_photo").files[0];
+        const photoUrl = file ? await uploadToCloudinary(file) : "";
+
+        showUploadedLink("addTool_photoLink", photoUrl);
+
+        const data = await postJSON({
+          action: "addTool",
+          token: adminToken,
+          name: document.getElementById("addTool_name").value.trim(),
+          category: document.getElementById("addTool_category").value.trim(),
+          location: document.getElementById("addTool_location").value.trim(),
+          status: document.getElementById("addTool_status").value,
+          notes: document.getElementById("addTool_notes").value.trim(),
+          photoUrl: photoUrl,
+          updatedBy: document.getElementById("addTool_updatedBy").value.trim()
+        });
+
+        statusEl.textContent = data.ok ? "Tool added." : (data.error || "Add tool failed");
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Add tool request failed.";
+      }
+    }
+
+    async function updateTool() {
+      const statusEl = document.getElementById("updateToolStatus");
+      statusEl.textContent = "Uploading photo and saving...";
+
+      try {
+        const file = document.getElementById("updateTool_photo").files[0];
+        const photoUrl = file ? await uploadToCloudinary(file) : "";
+
+        showUploadedLink("updateTool_photoLink", photoUrl);
+
+        const data = await postJSON({
+          action: "updateTool",
+          token: adminToken,
+          name: document.getElementById("updateTool_name").value.trim(),
+          category: document.getElementById("updateTool_category").value.trim(),
+          location: document.getElementById("updateTool_location").value.trim(),
+          status: document.getElementById("updateTool_status").value,
+          notes: document.getElementById("updateTool_notes").value.trim(),
+          photoUrl: photoUrl,
+          updatedBy: document.getElementById("updateTool_updatedBy").value.trim()
+        });
+
+        statusEl.textContent = data.ok
+          ? (data.created ? "Tool created." : "Tool updated.")
+          : (data.error || "Update tool failed");
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Update tool request failed.";
+      }
+    }
+
+    function logout() {
+      adminToken = "";
+      localStorage.removeItem("adminToken");
+      loginStatus.textContent = "";
+      showLoggedOut();
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", login);
+    document.getElementById("password").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") login();
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", logout);
+    document.getElementById("addBagBtn").addEventListener("click", addBag);
+    document.getElementById("updateBagBtn").addEventListener("click", updateBag);
+    document.getElementById("addToolBtn").addEventListener("click", addTool);
+    document.getElementById("updateToolBtn").addEventListener("click", updateTool);
+  </script>
+</body>
+</html>

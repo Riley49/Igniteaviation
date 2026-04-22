@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0B1F3B" />
+  <link rel="manifest" href="manifest.json">
+  <title>Ignite Aviation — Parts Finder</title>
+
+  <style>
+    :root{
+      --navy:#0B1F3B;
+      --navy-2:#0A1730;
+      --bg:#0f172a0d;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#5b6678;
+      --border:#e6e8ee;
+      --focus:#86b7ff;
+      --green:#166534;
+      --amber:#92400e;
+      --red:#991b1b;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .topbar{
+      background:linear-gradient(180deg,var(--navy),var(--navy-2));
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      min-height:72px;
+      padding:10px 14px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; min-width:240px; }
+    .rv-icon{
+      width:44px;height:44px;
+      display:grid;place-items:center;
+      border-radius:12px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .brand-title{ font-weight:800; font-size:20px; line-height:1; }
+    .brand-sub{ font-size:12px; opacity:.85; margin-top:2px; }
+    .nav{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .nav-link{
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+    }
+    .nav-link:hover{ background:rgba(255,255,255,.12); }
+    .wrap{ max-width:1100px; margin:18px auto 48px; padding:0 16px; }
+    .panel,.card,.metric{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:0 10px 24px rgba(15,23,42,.06);
+    }
+    .panel{ padding:16px; }
+    .muted{ color:var(--muted); margin:0 0 14px; }
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .metric{ padding:14px; }
+    .metric-label{
+      font-size:12px;
+      color:var(--muted);
+      text-transform:uppercase;
+      font-weight:800;
+    }
+    .metric-value{
+      font-size:28px;
+      font-weight:900;
+      margin-top:6px;
+    }
+    .bar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    select,input,button{
+      padding:12px;
+      font-size:16px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      outline:none;
+      background:#fff;
+    }
+    input{ flex:1; min-width:240px; }
+    .primary{
+      cursor:pointer;
+      background:var(--navy);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      font-weight:700;
+      padding:12px 16px;
+    }
+    .primary:hover{ filter:brightness(1.05); }
+    .status{ margin-top:12px; color:#334155; }
+    .card{ padding:14px; margin-top:14px; }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:12px;
+    }
+    th,td{
+      text-align:left;
+      padding:10px;
+      border-bottom:1px solid #eef0f5;
+      vertical-align:top;
+    }
+    th{
+      background:#f7f9fc;
+      color:#1f2937;
+      font-weight:800;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.4px;
+    }
+    .pill{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      background:rgba(11,31,59,.08);
+      border:1px solid rgba(11,31,59,.14);
+      color:var(--navy);
+      font-weight:700;
+    }
+    .badge{
+      display:inline-block;
+      padding:5px 10px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+    }
+    .badge.instock{ background:#dcfce7; color:var(--green); }
+    .badge.partial{ background:#fef3c7; color:var(--amber); }
+    .badge.missing{ background:#fee2e2; color:var(--red); }
+    .right{ text-align:right; }
+    .small{ font-size:13px; color:var(--muted); margin-top:8px; }
+    .vans-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:12px;
+      border:1px solid rgba(11,31,59,.18);
+      background:rgba(11,31,59,.06);
+      color:var(--navy);
+      font-weight:800;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .vans-btn:hover{ background:rgba(11,31,59,.10); }
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:14px;
+    }
+    @media (max-width: 900px){
+      .metrics{ grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width: 720px){
+      .wrap{ padding:0 12px; margin:14px auto 40px; }
+      select,input,button{ width:100%; }
+      input{ min-width:0; }
+    }
+    @media (max-width: 760px){
+      table, thead, tbody, th, td, tr{ display:block; width:100%; }
+      thead{ display:none; }
+      tr{
+        border:1px solid #eef0f5;
+        border-radius:14px;
+        padding:10px 10px 6px;
+        margin:10px 0;
+        background:#fff;
+      }
+      td{
+        border:none;
+        padding:8px 4px;
+        display:flex;
+        justify-content:space-between;
+        gap:10px;
+      }
+      td::before{
+        content: attr(data-label);
+        font-weight:800;
+        color:#334155;
+        text-transform:uppercase;
+        letter-spacing:.3px;
+        font-size:12px;
+        flex:0 0 38%;
+      }
+      td.right{ text-align:left; }
+      .vans-btn{ width:100%; justify-content:center; }
+    }
+    /* Photo modal styles */
+    .photo-modal.hidden{
+      display:none;
+    }
+    .photo-modal{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+    }
+    .photo-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.7);
+    }
+    .photo-dialog{
+      position:relative;
+      z-index:1;
+      width:min(92vw, 1000px);
+      max-height:90vh;
+      margin:5vh auto;
+      background:#fff;
+      border-radius:16px;
+      padding:14px;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+    .photo-dialog img{
+      display:block;
+      width:100%;
+      max-height:80vh;
+      object-fit:contain;
+      border-radius:12px;
+      background:#f8fafc;
+    }
+    .photo-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      width:auto;
+      padding:8px 12px;
+      border:none;
+      border-radius:999px;
+      background:#0B1F3B;
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .photo-preview-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:12px;
+      border:1px solid rgba(11,31,59,.18);
+      background:rgba(11,31,59,.06);
+      color:#0B1F3B;
+      font-weight:800;
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .photo-preview-btn:hover{
+      background:rgba(11,31,59,.10);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="rv-icon">
+        <img src="icon.PNG" alt="RV-12iS Icon" width="34" height="34" style="width:34px;height:34px;object-fit:contain;" />
+      </div>
+      <div>
+        <div class="brand-title">Ignite Aviation</div>
+        <div class="brand-sub">RV-12iS Tools</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+  <a class="nav-link" href="index.html">Parts Finder</a>
+  <a class="nav-link" href="bags.html">Bags</a>
+  <a class="nav-link" href="tools.html">Tools</a>
+  <a class="nav-link" href="manuals.html">Manuals</a>
+  <a class="nav-link" href="admin.html">Admin</a>
+</nav>
+  </header>
+
+  <main class="wrap">
+    <section class="metrics">
+      <div class="metric">
+        <div class="metric-label">Parts Indexed</div>
+        <div class="metric-value" id="metric-parts">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Bags Tracked</div>
+        <div class="metric-value" id="metric-bags">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">In Stock Bags</div>
+        <div class="metric-value" id="metric-instock">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Missing Bags</div>
+        <div class="metric-value" id="metric-missing">—</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="muted">
+        Search by <b>Part Number</b> (exact) or by <b>Keyword</b> (washer, cotter pin, rivet, AN3, etc.).
+      </p>
+
+      <div class="bar">
+        <select id="mode">
+          <option value="keyword">Keyword (contains)</option>
+          <option value="part">Part Number (exact)</option>
+        </select>
+
+        <input type="text" autocorrect="off" autocapitalize="off" spellcheck="false" autocomplete="off" id="q" placeholder="Type part number or keyword…" />
+
+        <button id="go" class="primary">Search</button>
+      </div>
+
+      <div class="status" id="status"></div>
+    </section>
+
+    <div id="results"></div>
+    <footer>Ignite Aviation • Parts finder</footer>
+  </main>
+
+<script>
+  const API = "https://script.google.com/macros/s/AKfycbyycN9RYSSrKidhr42pSM7Koh7FCMjtftYLS30py08yNHGmjKpZkrVjyOtX8F6z-HU9Ow/exec";
+
+  function esc(s){
+    return String(s ?? "").replace(/[&<>"']/g, m => (
+      {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]
+    ));
+  }
+
+  function statusClass(status){
+    const s = String(status || "").toLowerCase();
+    if (s.includes("missing")) return "missing";
+    if (s.includes("partial")) return "partial";
+    return "instock";
+  }
+
+  function vansHref(m){
+    const link = (m && m.link) ? String(m.link).trim() : "";
+    const part = (m && m.part) ? String(m.part).trim() : "";
+
+    if (link && /^https?:\/\//i.test(link)) return link;
+
+    if (part) {
+      return "https://store.vansaircraft.com/catalogsearch/result/?q=" +
+        encodeURIComponent(part).replaceAll("%20","+");
+    }
+
+    return "";
+  }
+
+  async function loadSummary(){
+    try {
+      const res = await fetch(`${API}?action=summary`);
+      const data = await res.json();
+
+      if (!data.ok) return;
+
+      document.getElementById("metric-parts").textContent = data.totalParts;
+      document.getElementById("metric-bags").textContent = data.totalBags;
+      document.getElementById("metric-instock").textContent = data.inStockBags;
+      document.getElementById("metric-missing").textContent = data.missingBags;
+    } catch (err) {
+      console.error("Summary load failed", err);
+    }
+  }
+
+  async function search() {
+    const mode = document.getElementById("mode").value;
+    const q = document.getElementById("q").value.trim();
+    const status = document.getElementById("status");
+    const results = document.getElementById("results");
+
+    results.innerHTML = "";
+
+    if (!q) {
+      status.textContent = "Enter a search term.";
+      return;
+    }
+
+    status.textContent = "Searching…";
+
+    try {
+      const url = `${API}?action=search&mode=${encodeURIComponent(mode)}&q=${encodeURIComponent(q)}&limit=300`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.ok) {
+        status.textContent = "Error: " + (data.error || "Unknown error");
+        return;
+      }
+
+      status.textContent = `Matches: ${data.matchCount} (showing ${data.returned})`;
+
+      if (!data.matches.length) {
+        results.innerHTML = `<div class="card">No matches for <b>${esc(q)}</b>.</div>`;
+        return;
+      }
+
+      const vansIcon = `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="14" height="14">
+          <path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      `;
+
+      const rows = data.matches.map(m => {
+        const href = vansHref(m);
+
+        return `
+          <tr>
+            <td data-label="Bag"><span class="pill">${esc(m.bag)}</span></td>
+            <td data-label="Part Number">${esc(m.part)}</td>
+            <td data-label="Description">${esc(m.description)}</td>
+            <td data-label="ShippedQty">${esc(m.shippedQty || "—")}</td>
+            <td data-label="Status"><span class="badge ${statusClass(m.status)}">${esc(m.status || "Unknown")}</span></td>
+            <td data-label="Location">${esc(m.location || "—")}</td>
+            <td data-label="Photo">
+  ${m.photoUrl ? `<button class="photo-preview-btn" type="button" data-photo="${esc(m.photoUrl)}">View Photo</button>` : "—"}
+</td>
+            <td class="right" data-label="Van’s">
+              ${
+                href
+                  ? `<a class="vans-btn" href="${href}" target="_blank" rel="noopener">Van’s ${vansIcon}</a>`
+                  : `<span class="small">—</span>`
+              }
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      results.innerHTML = `
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>Bag</th>
+                <th>Part Number</th>
+                <th>Description</th>
+                <th>Shipped Qty</th>
+                <th>Status</th>
+                <th>Location</th>
+                <th>Photo</th>
+                <th class="right">Van’s</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+    } catch (err) {
+      console.error(err);
+      status.textContent = "Search failed. Check your Apps Script URL and deployment.";
+    }
+  }
+
+  document.getElementById("go").addEventListener("click", search);
+  document.getElementById("q").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") search();
+  });
+
+  loadSummary();
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const photoModal = document.getElementById("photoModal");
+    const photoModalImg = document.getElementById("photoModalImg");
+    const photoClose = document.getElementById("photoClose");
+    const photoBackdrop = document.getElementById("photoBackdrop");
+
+    function openPhotoModal(url) {
+      if (!photoModalImg || !photoModal) return;
+      photoModalImg.src = url;
+      photoModal.classList.remove("hidden");
+    }
+
+    function closePhotoModal() {
+      if (!photoModalImg || !photoModal) return;
+      photoModalImg.src = "";
+      photoModal.classList.add("hidden");
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".photo-preview-btn");
+      if (btn) {
+        openPhotoModal(btn.dataset.photo);
+      }
+    });
+
+    if (photoClose) photoClose.addEventListener("click", closePhotoModal);
+    if (photoBackdrop) photoBackdrop.addEventListener("click", closePhotoModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closePhotoModal();
+    });
+  });
+</script>
+<div id="photoModal" class="photo-modal hidden">
+  <div class="photo-backdrop" id="photoBackdrop"></div>
+  <div class="photo-dialog">
+    <button id="photoClose" class="photo-close" type="button">✕</button>
+    <img id="photoModalImg" src="" alt="Last seen photo" />
+  </div>
+</div>
+</body>
+</html>
