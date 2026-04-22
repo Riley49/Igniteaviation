@@ -15,7 +15,7 @@ This project can be published automatically to Firebase Hosting every time you p
 3. Replace the placeholder in `.firebaserc`:
    - `YOUR_FIREBASE_PROJECT_ID` -> your real Firebase project id.
 
-## 2) Create GitHub Actions secret/variable
+## 2) Create GitHub Actions secrets/variable
 
 In your GitHub repository settings:
 
