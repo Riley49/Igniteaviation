@@ -22,17 +22,26 @@ In your GitHub repository settings:
 - **Secret**: `FIREBASE_SERVICE_ACCOUNT`
 - **Variable**: `FIREBASE_PROJECT_ID`
 
-Generate the service account secret with:
+### How to get `FIREBASE_PROJECT_ID`
 
-```bash
-firebase login:ci
-firebase projects:list
-firebase init hosting
-firebase serviceaccounts:keys:create firebase-key.json \
-  --project YOUR_FIREBASE_PROJECT_ID
-```
+Use one of these:
 
-Then copy the full JSON content from `firebase-key.json` into the `FIREBASE_SERVICE_ACCOUNT` secret.
+- Firebase Console -> **Project settings** -> copy **Project ID**
+- CLI:
+  ```bash
+  firebase projects:list
+  ```
+
+### How to get `FIREBASE_SERVICE_ACCOUNT`
+
+Use Firebase Console (recommended):
+
+1. Go to Firebase Console -> **Project settings** -> **Service accounts**.
+2. Click **Generate new private key**.
+3. Download the JSON file.
+4. Copy the full JSON content into the GitHub secret named `FIREBASE_SERVICE_ACCOUNT`.
+
+> Note: `serviceaccounts:keys:create` is **not** a Firebase CLI command.
 
 ## 3) Push to deploy
 
