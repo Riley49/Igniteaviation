@@ -149,6 +149,10 @@
       position:fixed;
       inset:0;
       z-index:10000;
+      height:100vh;
+      height:100dvh;
+      max-height:100dvh;
+      overflow:hidden;
       background:#fff;
       display:flex;
       flex-direction:column;
@@ -202,6 +206,7 @@
     }
     .manual-frame{
       width:100%;
+      min-height:0;
       flex:1 1 auto;
       border:0;
       background:#f8fafc;
@@ -719,9 +724,14 @@
       const photoClose = document.getElementById("photoClose");
       const photoBackdrop = document.getElementById("photoBackdrop");
 
+      function pdfFrameUrl(url) {
+        const separator = url.includes("#") ? "&" : "#";
+        return `${url}${separator}view=Fit&zoom=page-fit`;
+      }
+
       function openManualModal(url, label) {
         if (!manualModal || !manualFrame || !manualExternal || !manualTitle) return;
-        manualFrame.src = url;
+        manualFrame.src = pdfFrameUrl(url);
         manualExternal.href = url;
         manualTitle.textContent = label || "Manual PDF";
         manualModal.classList.remove("hidden");
