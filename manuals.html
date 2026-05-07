@@ -142,6 +142,96 @@
     }
     .btn:hover{ background:rgba(11,31,59,.10); }
 
+    .manual-modal.hidden{
+      display:none;
+    }
+    .manual-modal{
+      position:fixed;
+      inset:0;
+      z-index:10000;
+      height:100vh;
+      height:100dvh;
+      max-height:100dvh;
+      overflow:hidden;
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+    }
+    .manual-toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:calc(10px + env(safe-area-inset-top)) 12px 10px;
+      background:linear-gradient(180deg,var(--navy),var(--navy-2));
+      color:#fff;
+      box-shadow:0 4px 16px rgba(0,0,0,.22);
+      flex:0 0 auto;
+    }
+    .manual-title{
+      font-weight:900;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .manual-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+    }
+    .manual-close,
+    .manual-external{
+      min-width:44px;
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      font-weight:900;
+      text-decoration:none;
+      cursor:pointer;
+      font:inherit;
+    }
+    .manual-close{
+      font-size:24px;
+      line-height:1;
+    }
+    .manual-external{
+      padding:0 12px;
+      font-size:13px;
+    }
+    .manual-viewer{
+      flex:1 1 auto;
+      min-height:0;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:12px;
+      background:#e5e7eb;
+    }
+    .manual-status{
+      margin:18px auto;
+      max-width:520px;
+      padding:14px;
+      border-radius:14px;
+      background:#fff;
+      color:var(--muted);
+      text-align:center;
+      box-shadow:0 8px 18px rgba(15,23,42,.10);
+    }
+    .manual-page{
+      display:block;
+      width:100%;
+      height:auto;
+      margin:0 auto 12px;
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 6px 18px rgba(15,23,42,.18);
+    }
+
     .photo-modal.hidden{
       display:none;
     }
@@ -246,322 +336,322 @@
               <div class="title">Sec 01iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 01iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/01iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/01iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 02iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 02iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/02iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/02iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 03iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 03iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/03iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/03iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 04iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 04_12iS-U.pdf</div>
             </div>
-            <a class="btn" href="maunuals/04_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/04_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Section 5: Construction Basics</div>
               <div class="sub">Van’s construction reference PDF • Manual Section 5.pdf</div>
             </div>
-            <a class="btn" href="maunuals/Manual%20Section%205.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/Manual%20Section%205.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 06iS/U: Vertical Stabilizer</div>
               <div class="sub">RV-12iS construction plans PDF • 06_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/06_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/06_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 07iS/U: Rudder</div>
               <div class="sub">RV-12iS construction plans PDF • 07_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/07_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/07_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 08iS/U: Anti-Servo Tab</div>
               <div class="sub">RV-12iS construction plans PDF • 08_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/08_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/08_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 09iS/U: Stabilator</div>
               <div class="sub">RV-12iS construction plans PDF • 09_12iS-U.pdf</div>
             </div>
-            <a class="btn" href="maunuals/09_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/09_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 10iS/U: Tailcone</div>
               <div class="sub">RV-12iS construction plans PDF • 10iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/10iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/10iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 12A</div>
               <div class="sub">RV-12iS construction plans PDF • 12A_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/12A_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/12A_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 13: Spar Assembly</div>
               <div class="sub">RV-12iS construction plans PDF • 13_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/13_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/13_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 14: Rear Spar, Stub Spar, Hinge Brackets</div>
               <div class="sub">RV-12iS construction plans PDF • 14_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/14_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/14_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 15: Wing Ribs</div>
               <div class="sub">RV-12iS construction plans PDF • 15_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/15_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/15_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 16iS/U: Stall Warning</div>
               <div class="sub">RV-12iS construction plans PDF • 16iS-U_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/16iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/16iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 17: Wing Skins</div>
               <div class="sub">RV-12iS construction plans PDF • 17_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/17_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/17_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 18: Flaperon</div>
               <div class="sub">RV-12iS construction plans PDF • 18_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/18_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/18_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 20iS/U: Center Section Bulkhead</div>
               <div class="sub">RV-12iS construction plans PDF • 20iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/20iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/20iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 21iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 21iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/21iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/21iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 22iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 22iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/22iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/22iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 23iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 23iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/23iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/23iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 24iS/U — Updated</div>
               <div class="sub">RV-12iS construction plans PDF • 24iS-U_12iS UPDATED.pdf</div>
             </div>
-            <a class="btn" href="maunuals/24iS-U_12iS%20UPDATED.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/24iS-U_12iS%20UPDATED.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 25iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 25iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/25iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/25iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 26iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 26iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/26iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/26iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 27iS</div>
               <div class="sub">RV-12iS construction plans PDF • 27iS_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/27iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/27iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 28iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 28iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/28iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/28iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 29iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 29iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/29iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/29iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 32iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 32iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/32iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/32iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 35iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 35iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/35iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/35iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 36iS/U</div>
               <div class="sub">RV-12iS construction plans PDF • 36iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/36iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/36iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 37iS/U: Cowling</div>
               <div class="sub">RV-12iS construction plans PDF • 37iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/37iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/37iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 38iS/U: Airframe Assembly</div>
               <div class="sub">RV-12iS construction plans PDF • 38iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/38iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/38iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 39iS/U: Canopy</div>
               <div class="sub">RV-12iS construction plans PDF • 39iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/39iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/39iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 40iS/U: Lighting</div>
               <div class="sub">RV-12iS construction plans PDF • 40iS-U_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/40iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/40iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 42MiS/U: Common Electrical</div>
               <div class="sub">RV-12iS construction plans PDF • 42MiS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/42MiS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/42MiS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 42NiS: G3X Touch Avionics </div>
               <div class="sub">RV-12iS construction plans PDF • 42NiS_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/42NiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/42NiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 44BiS: Garmin Dual Axis Autopilot</div>
               <div class="sub">RV-12iS construction plans PDF • 44BiS_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/44BiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/44BiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 45iS/U: Firewall Mounted Components</div>
               <div class="sub">RV-12iS construction plans PDF • 45iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/45iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/45iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 46iS: Engine Install</div>
               <div class="sub">RV-12iS construction plans PDF • 46iS_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/46iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/46iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 47iS/U: Spinner & Propeller</div>
               <div class="sub">RV-12iS construction plans PDF • 47iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/47iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/47iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 48iS/U: Exhaust System</div>
               <div class="sub">RV-12iS construction plans PDF • 48iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/48iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/48iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 49iS: Engine Controls</div>
               <div class="sub">RV-12iS construction plans PDF • 49iS_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/49iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/49iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 50iS/U: Cooling & Heating System</div>
               <div class="sub">RV-12iS construction plans PDF • 50iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/50iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/50iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 51AiS/U: Placards & Documentation</div>
               <div class="sub">Placards and documentation plans PDF • 51AiS-U.pdf</div>
             </div>
-            <a class="btn" href="maunuals/51AiS-U.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/51AiS-U.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 52: Towbar</div>
               <div class="sub">Towbar plans PDF • 52_12.pdf</div>
             </div>
-            <a class="btn" href="maunuals/52_12.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/52_12.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Sec 55iS/U: Winterization Kit</div>
               <div class="sub">Winterization kit plans PDF • 55iS-U_12iS.pdf</div>
             </div>
-            <a class="btn" href="maunuals/55iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/55iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
           </div>
         </div>
       </div>
@@ -578,28 +668,28 @@
               <div class="title">Pilot’s Operating Handbook — Rev 13</div>
               <div class="sub">RV-12iS reference PDF • RV-12iS POH_Rev13.pdf</div>
             </div>
-            <a class="btn" href="maunuals/RV-12iS%20POH_Rev13.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/RV-12iS%20POH_Rev13.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Maintenance Manual — Rev 6</div>
               <div class="sub">RV-12iS reference PDF • RV-12iS MM_Rev6_compressed.pdf</div>
             </div>
-            <a class="btn" href="maunuals/RV-12iS%20MM_Rev6_compressed.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/RV-12iS%20MM_Rev6_compressed.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Production Acceptance Procedures — Rev 3</div>
               <div class="sub">RV-12iS reference PDF • RV-12iS PAP_Rev3.pdf</div>
             </div>
-            <a class="btn" href="maunuals/RV-12iS%20PAP_Rev3.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/RV-12iS%20PAP_Rev3.pdf" target="_blank" rel="noopener">Open</a>
           </div>
           <div class="item">
             <div class="left">
               <div class="title">Flight Training Supplement — Rev 8</div>
               <div class="sub">RV-12iS reference PDF • RV-12iS FTS_Rev8.pdf</div>
             </div>
-            <a class="btn" href="maunuals/RV-12iS%20FTS_Rev8.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/RV-12iS%20FTS_Rev8.pdf" target="_blank" rel="noopener">Open</a>
           </div>
         </div>
       </div>
@@ -616,7 +706,7 @@
               <div class="title">912 i Series Installation Manual — Ed. 2 Rev. 1</div>
               <div class="sub">Rotax 912 iS reference PDF • IM_912 i Series_ED2_R1.pdf</div>
             </div>
-            <a class="btn" href="maunuals/IM_912%20i%20Series_ED2_R1.pdf" target="_blank" rel="noopener">Open</a>
+            <a class="btn manual-link" href="maunuals/IM_912%20i%20Series_ED2_R1.pdf" target="_blank" rel="noopener">Open</a>
           </div>
         </div>
       </div>
@@ -644,10 +734,103 @@
 </main>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      const manualModal = document.getElementById("manualModal");
+      const manualViewer = document.getElementById("manualViewer");
+      const manualClose = document.getElementById("manualClose");
+      const manualExternal = document.getElementById("manualExternal");
+      const manualTitle = document.getElementById("manualTitle");
       const photoModal = document.getElementById("photoModal");
       const photoModalImg = document.getElementById("photoModalImg");
       const photoClose = document.getElementById("photoClose");
       const photoBackdrop = document.getElementById("photoBackdrop");
+
+      const pdfJsUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+      const pdfWorkerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      let pdfJsLoader;
+      let manualRenderToken = 0;
+
+      function setManualStatus(message) {
+        if (!manualViewer) return;
+        manualViewer.innerHTML = `<div class="manual-status">${message}</div>`;
+      }
+
+      function loadPdfJs() {
+        if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+        if (!pdfJsLoader) {
+          pdfJsLoader = new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = pdfJsUrl;
+            script.onload = () => resolve(window.pdfjsLib);
+            script.onerror = () => reject(new Error("PDF viewer failed to load."));
+            document.head.appendChild(script);
+          });
+        }
+        return pdfJsLoader;
+      }
+
+      async function renderManualPdf(url, token) {
+        if (!manualViewer) return;
+        setManualStatus("Loading manual…");
+
+        try {
+          const pdfjsLib = await loadPdfJs();
+          if (token !== manualRenderToken) return;
+          pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+
+          const pdf = await pdfjsLib.getDocument(url).promise;
+          if (token !== manualRenderToken) return;
+
+          manualViewer.innerHTML = "";
+          for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+            const page = await pdf.getPage(pageNumber);
+            if (token !== manualRenderToken) return;
+
+            const baseViewport = page.getViewport({ scale: 1 });
+            const availableWidth = Math.max(manualViewer.clientWidth - 24, 280);
+            const scale = availableWidth / baseViewport.width;
+            const viewport = page.getViewport({ scale });
+            const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            canvas.className = "manual-page";
+            canvas.width = Math.floor(viewport.width * outputScale);
+            canvas.height = Math.floor(viewport.height * outputScale);
+            canvas.style.width = `${Math.floor(viewport.width)}px`;
+            canvas.style.height = `${Math.floor(viewport.height)}px`;
+            manualViewer.appendChild(canvas);
+
+            await page.render({
+              canvasContext: context,
+              viewport,
+              transform: outputScale === 1 ? null : [outputScale, 0, 0, outputScale, 0, 0],
+            }).promise;
+          }
+        } catch (err) {
+          if (token !== manualRenderToken) return;
+          setManualStatus("This PDF could not be previewed here. Use New tab to open it directly.");
+        }
+      }
+
+      function openManualModal(url, label) {
+        if (!manualModal || !manualViewer || !manualExternal || !manualTitle) return;
+        manualExternal.href = url;
+        manualTitle.textContent = label || "Manual PDF";
+        manualModal.classList.remove("hidden");
+        manualModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        manualRenderToken += 1;
+        renderManualPdf(url, manualRenderToken);
+      }
+
+      function closeManualModal() {
+        if (!manualModal || !manualViewer) return;
+        manualRenderToken += 1;
+        manualViewer.innerHTML = "";
+        manualModal.classList.add("hidden");
+        manualModal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
 
       function openPhotoModal(url) {
         if (!photoModalImg || !photoModal) return;
@@ -662,18 +845,41 @@
       }
 
       document.addEventListener("click", (e) => {
+        const manualLink = e.target.closest(".manual-link");
+        if (manualLink) {
+          e.preventDefault();
+          const item = manualLink.closest(".item");
+          const label = item?.querySelector(".title")?.textContent?.trim();
+          openManualModal(manualLink.href, label);
+          return;
+        }
+
         const btn = e.target.closest(".photo-preview-btn");
         if (btn) openPhotoModal(btn.dataset.photo);
       });
 
+      if (manualClose) manualClose.addEventListener("click", closeManualModal);
       if (photoClose) photoClose.addEventListener("click", closePhotoModal);
       if (photoBackdrop) photoBackdrop.addEventListener("click", closePhotoModal);
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closePhotoModal();
+        if (e.key === "Escape") {
+          closeManualModal();
+          closePhotoModal();
+        }
       });
     });
   </script>
+  <div id="manualModal" class="manual-modal hidden" aria-hidden="true">
+    <div class="manual-toolbar">
+      <div id="manualTitle" class="manual-title">Manual PDF</div>
+      <div class="manual-actions">
+        <a id="manualExternal" class="manual-external" href="#" target="_blank" rel="noopener">New tab</a>
+        <button id="manualClose" class="manual-close" type="button" aria-label="Close manual">×</button>
+      </div>
+    </div>
+    <div id="manualViewer" class="manual-viewer" role="document" aria-label="Manual PDF pages"></div>
+  </div>
   <div id="photoModal" class="photo-modal hidden">
     <div class="photo-backdrop" id="photoBackdrop"></div>
     <div class="photo-dialog">
