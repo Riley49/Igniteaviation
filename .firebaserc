@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "human-slot"
+  },
+  "targets": {
+    "human-slot": {
+      "hosting": {
+        "human-slot-9353c": [
+          "human-slot-9353c"
+        ]
+      }
+    }
+  }
+}

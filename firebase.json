@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "apps-scrip/**"
+    ],
+    "cleanUrls": false,
+    "target": "human-slot-9353c"
+  }
+}
