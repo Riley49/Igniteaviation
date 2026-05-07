@@ -204,12 +204,32 @@
       padding:0 12px;
       font-size:13px;
     }
-    .manual-frame{
-      width:100%;
-      min-height:0;
+    .manual-viewer{
       flex:1 1 auto;
-      border:0;
-      background:#f8fafc;
+      min-height:0;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      padding:12px;
+      background:#e5e7eb;
+    }
+    .manual-status{
+      margin:18px auto;
+      max-width:520px;
+      padding:14px;
+      border-radius:14px;
+      background:#fff;
+      color:var(--muted);
+      text-align:center;
+      box-shadow:0 8px 18px rgba(15,23,42,.10);
+    }
+    .manual-page{
+      display:block;
+      width:100%;
+      height:auto;
+      margin:0 auto 12px;
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 6px 18px rgba(15,23,42,.18);
     }
 
     .photo-modal.hidden{
@@ -715,7 +735,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const manualModal = document.getElementById("manualModal");
-      const manualFrame = document.getElementById("manualFrame");
+      const manualViewer = document.getElementById("manualViewer");
       const manualClose = document.getElementById("manualClose");
       const manualExternal = document.getElementById("manualExternal");
       const manualTitle = document.getElementById("manualTitle");
@@ -724,24 +744,89 @@
       const photoClose = document.getElementById("photoClose");
       const photoBackdrop = document.getElementById("photoBackdrop");
 
-      function pdfFrameUrl(url) {
-        const separator = url.includes("#") ? "&" : "#";
-        return `${url}${separator}view=Fit&zoom=page-fit`;
+      const pdfJsUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+      const pdfWorkerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      let pdfJsLoader;
+      let manualRenderToken = 0;
+
+      function setManualStatus(message) {
+        if (!manualViewer) return;
+        manualViewer.innerHTML = `<div class="manual-status">${message}</div>`;
+      }
+
+      function loadPdfJs() {
+        if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+        if (!pdfJsLoader) {
+          pdfJsLoader = new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src = pdfJsUrl;
+            script.onload = () => resolve(window.pdfjsLib);
+            script.onerror = () => reject(new Error("PDF viewer failed to load."));
+            document.head.appendChild(script);
+          });
+        }
+        return pdfJsLoader;
+      }
+
+      async function renderManualPdf(url, token) {
+        if (!manualViewer) return;
+        setManualStatus("Loading manual…");
+
+        try {
+          const pdfjsLib = await loadPdfJs();
+          if (token !== manualRenderToken) return;
+          pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+
+          const pdf = await pdfjsLib.getDocument(url).promise;
+          if (token !== manualRenderToken) return;
+
+          manualViewer.innerHTML = "";
+          for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+            const page = await pdf.getPage(pageNumber);
+            if (token !== manualRenderToken) return;
+
+            const baseViewport = page.getViewport({ scale: 1 });
+            const availableWidth = Math.max(manualViewer.clientWidth - 24, 280);
+            const scale = availableWidth / baseViewport.width;
+            const viewport = page.getViewport({ scale });
+            const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            canvas.className = "manual-page";
+            canvas.width = Math.floor(viewport.width * outputScale);
+            canvas.height = Math.floor(viewport.height * outputScale);
+            canvas.style.width = `${Math.floor(viewport.width)}px`;
+            canvas.style.height = `${Math.floor(viewport.height)}px`;
+            manualViewer.appendChild(canvas);
+
+            await page.render({
+              canvasContext: context,
+              viewport,
+              transform: outputScale === 1 ? null : [outputScale, 0, 0, outputScale, 0, 0],
+            }).promise;
+          }
+        } catch (err) {
+          if (token !== manualRenderToken) return;
+          setManualStatus("This PDF could not be previewed here. Use New tab to open it directly.");
+        }
       }
 
       function openManualModal(url, label) {
-        if (!manualModal || !manualFrame || !manualExternal || !manualTitle) return;
-        manualFrame.src = pdfFrameUrl(url);
+        if (!manualModal || !manualViewer || !manualExternal || !manualTitle) return;
         manualExternal.href = url;
         manualTitle.textContent = label || "Manual PDF";
         manualModal.classList.remove("hidden");
         manualModal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+        manualRenderToken += 1;
+        renderManualPdf(url, manualRenderToken);
       }
 
       function closeManualModal() {
-        if (!manualModal || !manualFrame) return;
-        manualFrame.src = "about:blank";
+        if (!manualModal || !manualViewer) return;
+        manualRenderToken += 1;
+        manualViewer.innerHTML = "";
         manualModal.classList.add("hidden");
         manualModal.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
@@ -793,7 +878,7 @@
         <button id="manualClose" class="manual-close" type="button" aria-label="Close manual">×</button>
       </div>
     </div>
-    <iframe id="manualFrame" class="manual-frame" title="Manual PDF viewer" src="about:blank"></iframe>
+    <div id="manualViewer" class="manual-viewer" role="document" aria-label="Manual PDF pages"></div>
   </div>
   <div id="photoModal" class="photo-modal hidden">
     <div class="photo-backdrop" id="photoBackdrop"></div>
