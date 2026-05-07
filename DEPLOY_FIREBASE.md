@@ -1,6 +1,6 @@
 # Firebase auto-deploy setup
 
-This project can be published automatically to Firebase Hosting every time you push to `main`.
+This project can be published automatically to Firebase Hosting project `human-slot-9353c` every time you push to `main`.
 
 ## 1) One-time Firebase setup (local)
 
@@ -12,31 +12,19 @@ This project can be published automatically to Firebase Hosting every time you p
    ```bash
    firebase login
    ```
-3. Replace the placeholder in `.firebaserc`:
-   - `YOUR_FIREBASE_PROJECT_ID` -> your real Firebase project id.
+3. The Firebase project is pinned in `.firebaserc` as `human-slot-9353c`.
 
-## 2) Create GitHub Actions secrets/variable
+## 2) Create GitHub Actions secret
 
-In your GitHub repository settings:
+In your GitHub repository settings, add this secret:
 
 - **Secret**: `FIREBASE_SERVICE_ACCOUNT`
-- **Variable**: `FIREBASE_PROJECT_ID`
-
-### How to get `FIREBASE_PROJECT_ID`
-
-Use one of these:
-
-- Firebase Console -> **Project settings** -> copy **Project ID**
-- CLI:
-  ```bash
-  firebase projects:list
-  ```
 
 ### How to get `FIREBASE_SERVICE_ACCOUNT`
 
 Use Firebase Console (recommended):
 
-1. Go to Firebase Console -> **Project settings** -> **Service accounts**.
+1. Go to Firebase Console -> select project `human-slot-9353c` -> **Project settings** -> **Service accounts**.
 2. Click **Generate new private key**.
 3. Download the JSON file.
 4. Copy the full JSON content into the GitHub secret named `FIREBASE_SERVICE_ACCOUNT`.
