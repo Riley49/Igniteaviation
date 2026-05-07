@@ -1,597 +1,1327 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Ignite Aviation — Manuals</title>
-
-  <style>
-    :root{
-      --navy:#0B1F3B;
-      --navy-2:#0A1730;
-      --bg:#0f172a0d;
-      --card:#ffffff;
-      --text:#0f172a;
-      --muted:#5b6678;
-      --border:#e6e8ee;
-      --focus:#86b7ff;
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-
-    .topbar{
-      background:linear-gradient(180deg,var(--navy),var(--navy-2));
-      color:#fff;
-      min-height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding: env(safe-area-inset-top) 18px 10px;
-      position:sticky;
-      top:0;
-      z-index:10;
-      box-shadow:0 6px 18px rgba(0,0,0,.18);
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .brand{ display:flex; align-items:center; gap:12px; }
-    .rv-icon{
-      width:44px;height:44px;
-      display:grid;place-items:center;
-      border-radius:12px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.18);
-    }
-    .brand-title{ font-weight:800; font-size:20px; line-height:1; }
-    .brand-sub{ font-size:12px; opacity:.85; margin-top:2px; }
-
-    .nav{ display:flex; gap:10px; flex-wrap:wrap; }
-    .nav-link{
-      color:#fff;
-      text-decoration:none;
-      font-weight:800;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-    }
-    .nav-link:hover{ background:rgba(255,255,255,.12); }
-
-    .wrap{ max-width:980px; margin:18px auto 48px; padding:0 16px; }
-    h1{ margin:0; font-size:22px; }
-
-    .hero{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:16px;
-      box-shadow:0 10px 24px rgba(15,23,42,.06);
-    }
-    .muted{ color:var(--muted); margin-top:6px; }
-
-    .accordion{ margin-top:14px; display:flex; flex-direction:column; gap:12px; }
-
-    details{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:0 10px 24px rgba(15,23,42,.06);
-      overflow:hidden;
-    }
-    summary{
-      list-style:none;
-      cursor:pointer;
-      padding:16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      font-weight:900;
-      font-size:16px;
-    }
-    summary::-webkit-details-marker{ display:none; }
-
-    .chev{
-      width:34px;height:34px;
-      border-radius:10px;
-      border:1px solid #eef0f5;
-      background:#fafbfe;
-      color:var(--text);
-      display:grid;place-items:center;
-      transition:transform .15s ease;
-      flex:0 0 auto;
-    }
-    details[open] .chev{ transform:rotate(180deg); }
-
-    .content{ padding:0 16px 16px; }
-
-    .list{ display:flex; flex-direction:column; gap:10px; }
-    .item{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid #eef0f5;
-      background:#fafbfe;
-    }
-    .left{ display:flex; flex-direction:column; gap:3px; min-width:0; }
-    .title{ font-weight:800; }
-    .sub{ font-size:12px; color:var(--muted); overflow-wrap:anywhere; }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(11,31,59,.18);
-      background:rgba(11,31,59,.06);
-      color:var(--navy);
-      font-weight:900;
-      text-decoration:none;
-      white-space:nowrap;
-      min-height:42px;
-    }
-    .btn:hover{ background:rgba(11,31,59,.10); }
-
-    @media (max-width:520px){
-      .topbar{ align-items:flex-start; }
-      .nav{ width:100%; }
-      .nav-link{ flex:1 1 auto; text-align:center; }
-    }
-
-    @media (max-width:420px){
-      .item{ flex-direction:column; align-items:stretch; }
-      .btn{ width:100%; justify-content:center; }
-    }
-
-    footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:14px; }
-  </style>
-</head>
-
-<body>
-<header class="topbar">
-  <div class="brand">
-    <div class="rv-icon">
-      <img src="icon.PNG" alt="RV-12iS" style="width:34px;height:34px;object-fit:contain;">
-    </div>
-    <div>
-      <div class="brand-title">Ignite Aviation</div>
-      <div class="brand-sub">RV-12iS Tools</div>
-    </div>
-  </div>
-  <nav class="nav">
-    <a class="nav-link" href="index.html">Parts Finder</a>
-    <a class="nav-link" href="bags.html">Bags</a>
-    <a class="nav-link" href="tools.html">Tools</a>
-    <a class="nav-link" href="manuals.html">Manuals</a>
-    <a class="nav-link" href="admin.html">Admin</a>
-  </nav>
-</header>
-
-<main class="wrap">
-  <section class="hero">
-    <h1>Manuals & References</h1>
-    <p class="muted">Tap a section to expand. This page now points to the uploaded local PDFs so the manuals stay available from this app.</p>
-  </section>
-
-  <section class="accordion">
-    <details>
-      <summary>
-        Van’s RV-12iS — Construction Sections
-        <div class="chev">⌄</div>
-      </summary>
-      <div class="content">
-        <div class="list">
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 01iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 01iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/01iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 02iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 02iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/02iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 03iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 03iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/03iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 04iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 04_12iS-U.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/04_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Section 5: Construction Basics</div>
-              <div class="sub">Van’s construction reference PDF • Manual Section 5.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/Manual%20Section%205.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 06iS/U: Vertical Stabilizer</div>
-              <div class="sub">RV-12iS construction plans PDF • 06_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/06_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 07iS/U: Rudder</div>
-              <div class="sub">RV-12iS construction plans PDF • 07_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/07_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 08iS/U: Anti-Servo Tab</div>
-              <div class="sub">RV-12iS construction plans PDF • 08_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/08_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 09iS/U: Stabilator</div>
-              <div class="sub">RV-12iS construction plans PDF • 09_12iS-U.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/09_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 10iS/U: Tailcone</div>
-              <div class="sub">RV-12iS construction plans PDF • 10iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/10iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 12A</div>
-              <div class="sub">RV-12iS construction plans PDF • 12A_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/12A_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 13: Spar Assembly</div>
-              <div class="sub">RV-12iS construction plans PDF • 13_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/13_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 14: Rear Spar, Stub Spar, Hinge Brackets</div>
-              <div class="sub">RV-12iS construction plans PDF • 14_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/14_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 15: Wing Ribs</div>
-              <div class="sub">RV-12iS construction plans PDF • 15_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/15_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 16iS/U: Stall Warning</div>
-              <div class="sub">RV-12iS construction plans PDF • 16iS-U_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/16iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 17: Wing Skins</div>
-              <div class="sub">RV-12iS construction plans PDF • 17_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/17_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 18: Flaperon</div>
-              <div class="sub">RV-12iS construction plans PDF • 18_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/18_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 20iS/U: Center Section Bulkhead</div>
-              <div class="sub">RV-12iS construction plans PDF • 20iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/20iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 21iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 21iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/21iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 22iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 22iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/22iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 23iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 23iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/23iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 24iS/U — Updated</div>
-              <div class="sub">RV-12iS construction plans PDF • 24iS-U_12iS UPDATED.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/24iS-U_12iS%20UPDATED.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 25iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 25iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/25iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 26iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 26iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/26iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 27iS</div>
-              <div class="sub">RV-12iS construction plans PDF • 27iS_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/27iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 28iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 28iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/28iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 29iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 29iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/29iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 32iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 32iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/32iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 35iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 35iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/35iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 36iS/U</div>
-              <div class="sub">RV-12iS construction plans PDF • 36iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/36iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 37iS/U: Cowling</div>
-              <div class="sub">RV-12iS construction plans PDF • 37iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/37iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 38iS/U: Airframe Assembly</div>
-              <div class="sub">RV-12iS construction plans PDF • 38iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/38iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 39iS/U: Canopy</div>
-              <div class="sub">RV-12iS construction plans PDF • 39iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/39iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 40iS/U: Lighting</div>
-              <div class="sub">RV-12iS construction plans PDF • 40iS-U_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/40iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 42MiS/U: Common Electrical</div>
-              <div class="sub">RV-12iS construction plans PDF • 42MiS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/42MiS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 42NiS</div>
-              <div class="sub">RV-12iS construction plans PDF • 42NiS_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/42NiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 44BiS</div>
-              <div class="sub">RV-12iS construction plans PDF • 44BiS_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/44BiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 45iS/U: Firewall Mounted Components</div>
-              <div class="sub">RV-12iS construction plans PDF • 45iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/45iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 46iS: Engine Install</div>
-              <div class="sub">RV-12iS construction plans PDF • 46iS_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/46iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 47iS/U: Spinner & Propeller</div>
-              <div class="sub">RV-12iS construction plans PDF • 47iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/47iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 48iS/U: Exhaust System</div>
-              <div class="sub">RV-12iS construction plans PDF • 48iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/48iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 49iS: Engine Controls</div>
-              <div class="sub">RV-12iS construction plans PDF • 49iS_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/49iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 50iS/U: Cooling & Heating System</div>
-              <div class="sub">RV-12iS construction plans PDF • 50iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/50iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 51AiS/U: Placards & Documentation</div>
-              <div class="sub">Placards and documentation plans PDF • 51AiS-U.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/51AiS-U.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 52: Towbar</div>
-              <div class="sub">Towbar plans PDF • 52_12.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/52_12.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Sec 55iS/U: Winterization Kit</div>
-              <div class="sub">Winterization kit plans PDF • 55iS-U_12iS.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/55iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-        </div>
-      </div>
-    </details>
-    <details>
-      <summary>
-        RV-12iS Operations & Maintenance
-        <div class="chev">⌄</div>
-      </summary>
-      <div class="content">
-        <div class="list">
-          <div class="item">
-            <div class="left">
-              <div class="title">Pilot’s Operating Handbook — Rev 13</div>
-              <div class="sub">RV-12iS reference PDF • RV-12iS POH_Rev13.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/RV-12iS%20POH_Rev13.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Maintenance Manual — Rev 6</div>
-              <div class="sub">RV-12iS reference PDF • RV-12iS MM_Rev6_compressed.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/RV-12iS%20MM_Rev6_compressed.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Production Acceptance Procedures — Rev 3</div>
-              <div class="sub">RV-12iS reference PDF • RV-12iS PAP_Rev3.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/RV-12iS%20PAP_Rev3.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-          <div class="item">
-            <div class="left">
-              <div class="title">Flight Training Supplement — Rev 8</div>
-              <div class="sub">RV-12iS reference PDF • RV-12iS FTS_Rev8.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/RV-12iS%20FTS_Rev8.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-        </div>
-      </div>
-    </details>
-    <details>
-      <summary>
-        Rotax 912 iS
-        <div class="chev">⌄</div>
-      </summary>
-      <div class="content">
-        <div class="list">
-          <div class="item">
-            <div class="left">
-              <div class="title">912 i Series Installation Manual — Ed. 2 Rev. 1</div>
-              <div class="sub">Rotax 912 iS reference PDF • IM_912 i Series_ED2_R1.pdf</div>
-            </div>
-            <a class="btn" href="maunuals/IM_912%20i%20Series_ED2_R1.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-        </div>
-      </div>
-    </details>
-    <details>
-      <summary>
-        Shop & Safety
-        <div class="chev">⌄</div>
-      </summary>
-      <div class="content">
-        <div class="list">
-          <div class="item">
-            <div class="left">
-              <div class="title">Rivet & Torque Reference</div>
-              <div class="sub">Quick reference sheet for shop torque and riveting specs</div>
-            </div>
-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-ALL_05.pdf" target="_blank" rel="noopener">Open</a>
-          </div>
-        </div>
-      </div>
-    </details>
-  </section>
-
-  <footer>Ignite Aviation • Manuals hub</footer>
-</main>
-  <script src="sw-register.js"></script>
-</body>
-</html>
+diff --git a/manuals.html b/manuals.html
+index f1da85b72b24e7f08b6308ad90daa8bbfa730cde..4f5580802b79caf34e9bd48f8ad1a943d5317985 100644
+--- a/manuals.html
++++ b/manuals.html
+@@ -1,637 +1,686 @@
+-<!doctype html>
+-<html lang="en">
+-<head>
+-  <meta charset="utf-8" />
+-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+-  <title>Ignite Aviation — Manuals</title>
+-
+-  <style>
+-    :root{
+-      --navy:#0B1F3B;
+-      --navy-2:#0A1730;
+-      --bg:#0f172a0d;
+-      --card:#ffffff;
+-      --text:#0f172a;
+-      --muted:#5b6678;
+-      --border:#e6e8ee;
+-      --focus:#86b7ff;
+-    }
+-    *{ box-sizing:border-box; }
+-    body{
+-      margin:0;
+-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+-      background:var(--bg);
+-      color:var(--text);
+-      padding-bottom: env(safe-area-inset-bottom);
+-    }
+-
+-    /* ---------- TOP BAR ---------- */
+-    .topbar{
+-      background:linear-gradient(180deg,var(--navy),var(--navy-2));
+-      color:#fff;
+-      min-height:72px;
+-      display:flex;
+-      align-items:center;
+-      justify-content:space-between;
+-      padding: env(safe-area-inset-top) 18px 10px;
+-      position:sticky;
+-      top:0;
+-      z-index:10;
+-      box-shadow:0 6px 18px rgba(0,0,0,.18);
+-      gap:16px;
+-      flex-wrap:wrap;
+-    }
+-    .brand{ display:flex; align-items:center; gap:12px; }
+-    .rv-icon{
+-      width:44px;height:44px;
+-      display:grid;place-items:center;
+-      border-radius:12px;
+-      background:rgba(255,255,255,.10);
+-      border:1px solid rgba(255,255,255,.18);
+-    }
+-    .brand-title{ font-weight:800; font-size:20px; line-height:1; }
+-    .brand-sub{ font-size:12px; opacity:.85; margin-top:2px; }
+-
+-    .nav{ display:flex; gap:10px; flex-wrap:wrap; }
+-    .nav-link{
+-      color:#fff;
+-      text-decoration:none;
+-      font-weight:800;
+-      padding:10px 14px;
+-      border-radius:999px;
+-      border:1px solid rgba(255,255,255,.14);
+-      background:rgba(255,255,255,.06);
+-    }
+-    .nav-link:hover{ background:rgba(255,255,255,.12); }
+-
+-    /* ---------- LAYOUT ---------- */
+-    .wrap{ max-width:980px; margin:18px auto 48px; padding:0 16px; }
+-    h1{ margin:0; font-size:22px; }
+-
+-    .hero{
+-      background:var(--card);
+-      border:1px solid var(--border);
+-      border-radius:16px;
+-      padding:16px;
+-      box-shadow:0 10px 24px rgba(15,23,42,.06);
+-    }
+-    .muted{ color:var(--muted); margin-top:6px; }
+-
+-    /* ---------- ACCORDION ---------- */
+-    .accordion{ margin-top:14px; display:flex; flex-direction:column; gap:12px; }
+-
+-    details{
+-      background:var(--card);
+-      border:1px solid var(--border);
+-      border-radius:16px;
+-      box-shadow:0 10px 24px rgba(15,23,42,.06);
+-      overflow:hidden;
+-    }
+-    summary{
+-      list-style:none;
+-      cursor:pointer;
+-      padding:16px;
+-      display:flex;
+-      align-items:center;
+-      justify-content:space-between;
+-      font-weight:900;
+-      font-size:16px;
+-    }
+-    summary::-webkit-details-marker{ display:none; }
+-
+-    .chev{
+-      width:34px;height:34px;
+-      border-radius:10px;
+-      border:1px solid #eef0f5;
+-      background:#fafbfe;
+-      display:grid;place-items:center;
+-      transition:transform .15s ease;
+-    }
+-    details[open] .chev{ transform:rotate(180deg); }
+-
+-    .content{ padding:0 16px 16px; }
+-
+-    .list{ display:flex; flex-direction:column; gap:10px; }
+-    .item{
+-      display:flex;
+-      align-items:center;
+-      justify-content:space-between;
+-      gap:12px;
+-      padding:12px;
+-      border-radius:14px;
+-      border:1px solid #eef0f5;
+-      background:#fafbfe;
+-    }
+-    .left{ display:flex; flex-direction:column; gap:3px; }
+-    .title{ font-weight:800; }
+-    .sub{ font-size:12px; color:var(--muted); }
+-
+-    .btn{
+-      display:inline-flex;
+-      align-items:center;
+-      gap:8px;
+-      padding:10px 14px;
+-      border-radius:14px;
+-      border:1px solid rgba(11,31,59,.18);
+-      background:rgba(11,31,59,.06);
+-      color:var(--navy);
+-      font-weight:900;
+-      text-decoration:none;
+-      white-space:nowrap;
+-      min-height:42px;
+-    }
+-    .btn:hover{ background:rgba(11,31,59,.10); }
+-
+-    @media (max-width:360px){
+-      .item{ flex-direction:column; align-items:stretch; }
+-      .btn{ width:100%; justify-content:center; }
+-    }
+-
+-    footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:14px; }
+-  </style>
+-</head>
+-
+-<body>
+-<header class="topbar">
+-  <div class="brand">
+-    <div class="rv-icon">
+-      <img src="icon.PNG" alt="RV-12iS" style="width:34px;height:34px;object-fit:contain;">
+-    </div>
+-    <div>
+-      <div class="brand-title">Ignite Aviation</div>
+-      <div class="brand-sub">RV-12iS Tools</div>
+-    </div>
+-  </div>
+-  <nav class="nav">
+-  <a class="nav-link" href="index.html">Parts Finder</a>
+-  <a class="nav-link" href="bags.html">Bags</a>
+-  <a class="nav-link" href="tools.html">Tools</a>
+-  <a class="nav-link" href="manuals.html">Manuals</a>
+-  <a class="nav-link" href="admin.html">Admin</a>
+-</nav>
+-</header>
+-
+-<main class="wrap">
+-  <section class="hero">
+-    <h1>Manuals & References</h1>
+-    <p class="muted">Tap a section to expand. All official RV-12iS build documents in one place.</p>
+-  </section>
+-
+-  <section class="accordion">
+-
+-    <!-- VAN'S RV-12iS -->
+-    <details>
+-      <summary>
+-        Van’s RV-12iS — Construction Sections
+-        <div class="chev">⌄</div>
+-      </summary>
+-      <div class="content">
+-        <div class="list">
+-
+-          <!-- KEEP ADDING ITEMS EXACTLY LIKE THIS -->
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 6iS/U: Vertical Stabilizer</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/06-Vertical-Stabilizer" target="_blank">Open</a>
+-          </div>
+-
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 7iS/U: Rudder</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/07-Rudder.pdf" target="_blank">Open</a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 8iS/U: Anti-Servo-Tab</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/08-Anti-Servo-Tab.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 9iS/U: Stabilator</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2023/01/09_12iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 10iS/U: Tailcone</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/10iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 11iS/U: Empennage Attachment</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/11iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 12iS/U: Empennage</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/02/12iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 13iS/U: Spar Assembly</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/13-Spar-Assembly.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 14iS/U: Rear Spar, Stub Spar, Hinge Brackets</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/14-Rear-Spar-Stub-Spar-Hinge.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 15iS/U: Wing Ribs</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/15-Wing-Ribs.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 16iS/U: Stall Warning</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/16-Stall-Warning.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 17iS/U: Wing Skins</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/17-Wing-Skins.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 18iS/U: Flaperon</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12_18.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec iS/U: </div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="PASTE_HERE" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 20iS/U: Center Section Bulkhead</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_20iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 21iS/U: Mid-Fuse Ribs & Bottom Skins </div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_21iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 22iS/U: FWD Lower Fuselage</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_22iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 23iS/U: Side Skins</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_23iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 24iS/U: Rollover Structure</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/24iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 25iS/U: Seatbacks</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_25iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 26iS/U: Fuel Tank</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/26iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 27iS: Fuel System</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/27iS_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 28iS/U: Rudder Pedals & Brakes</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_28iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 29iS/U: FWD Upper Fuselage</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_29iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 30iS/U: Wing Attachment</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-12iS_29iS-U.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 32iS/U: Flight Controls</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/32iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 33iS/U: Miscellanea</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2021/10/33_12.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 35iS/U: Landing Gear & Enging Mount</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2021/12/35iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 36iS/U: Gear Leg & Wheel Fairings</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2020/11/36iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 37iS/U: Cowling</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2020/12/37iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 38iS/U: Airframe Assembly</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2021/10/38iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 39iS/U: Canopy</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2023/01/39iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 40iS/U: Lighting</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/09/40iS-U_12.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 42MiS/U: Common Electrical</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/42MiS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 43iS/U: Skyview Dual Screen</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/43BiS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-           <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 44iS/U: Skyview Dual Axis Autopilot</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/44AiS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
++  <title>Ignite Aviation — Manuals</title>
++
++  <style>
++    :root{
++      --navy:#0B1F3B;
++      --navy-2:#0A1730;
++      --bg:#0f172a0d;
++      --card:#ffffff;
++      --text:#0f172a;
++      --muted:#5b6678;
++      --border:#e6e8ee;
++      --focus:#86b7ff;
++    }
++    *{ box-sizing:border-box; }
++    body{
++      margin:0;
++      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
++      background:var(--bg);
++      color:var(--text);
++      padding-bottom: env(safe-area-inset-bottom);
++    }
++
++    .topbar{
++      background:linear-gradient(180deg,var(--navy),var(--navy-2));
++      color:#fff;
++      min-height:72px;
++      display:flex;
++      align-items:center;
++      justify-content:space-between;
++      padding: env(safe-area-inset-top) 18px 10px;
++      position:sticky;
++      top:0;
++      z-index:10;
++      box-shadow:0 6px 18px rgba(0,0,0,.18);
++      gap:16px;
++      flex-wrap:wrap;
++    }
++    .brand{ display:flex; align-items:center; gap:12px; }
++    .rv-icon{
++      width:44px;height:44px;
++      display:grid;place-items:center;
++      border-radius:12px;
++      background:rgba(255,255,255,.10);
++      border:1px solid rgba(255,255,255,.18);
++    }
++    .brand-title{ font-weight:800; font-size:20px; line-height:1; }
++    .brand-sub{ font-size:12px; opacity:.85; margin-top:2px; }
++
++    .nav{ display:flex; gap:10px; flex-wrap:wrap; }
++    .nav-link{
++      color:#fff;
++      text-decoration:none;
++      font-weight:800;
++      padding:10px 14px;
++      border-radius:999px;
++      border:1px solid rgba(255,255,255,.14);
++      background:rgba(255,255,255,.06);
++    }
++    .nav-link:hover{ background:rgba(255,255,255,.12); }
++
++    .wrap{ max-width:980px; margin:18px auto 48px; padding:0 16px; }
++    h1{ margin:0; font-size:22px; }
++
++    .hero{
++      background:var(--card);
++      border:1px solid var(--border);
++      border-radius:16px;
++      padding:16px;
++      box-shadow:0 10px 24px rgba(15,23,42,.06);
++    }
++    .muted{ color:var(--muted); margin-top:6px; }
++
++    .accordion{ margin-top:14px; display:flex; flex-direction:column; gap:12px; }
++
++    details{
++      background:var(--card);
++      border:1px solid var(--border);
++      border-radius:16px;
++      box-shadow:0 10px 24px rgba(15,23,42,.06);
++      overflow:hidden;
++    }
++    summary{
++      list-style:none;
++      cursor:pointer;
++      padding:16px;
++      display:flex;
++      align-items:center;
++      justify-content:space-between;
++      gap:12px;
++      font-weight:900;
++      font-size:16px;
++    }
++    summary::-webkit-details-marker{ display:none; }
++
++    .chev{
++      width:34px;height:34px;
++      border-radius:10px;
++      border:1px solid #eef0f5;
++      background:#fafbfe;
++      color:var(--text);
++      display:grid;place-items:center;
++      transition:transform .15s ease;
++      flex:0 0 auto;
++    }
++    details[open] .chev{ transform:rotate(180deg); }
++
++    .content{ padding:0 16px 16px; }
++
++    .list{ display:flex; flex-direction:column; gap:10px; }
++    .item{
++      display:flex;
++      align-items:center;
++      justify-content:space-between;
++      gap:12px;
++      padding:12px;
++      border-radius:14px;
++      border:1px solid #eef0f5;
++      background:#fafbfe;
++    }
++    .left{ display:flex; flex-direction:column; gap:3px; min-width:0; }
++    .title{ font-weight:800; }
++    .sub{ font-size:12px; color:var(--muted); overflow-wrap:anywhere; }
++
++    .btn{
++      display:inline-flex;
++      align-items:center;
++      gap:8px;
++      padding:10px 14px;
++      border-radius:14px;
++      border:1px solid rgba(11,31,59,.18);
++      background:rgba(11,31,59,.06);
++      color:var(--navy);
++      font-weight:900;
++      text-decoration:none;
++      white-space:nowrap;
++      min-height:42px;
++    }
++    .btn:hover{ background:rgba(11,31,59,.10); }
++
++    .photo-modal.hidden{
++      display:none;
++    }
++    .photo-modal{
++      position:fixed;
++      inset:0;
++      z-index:9999;
++    }
++    .photo-backdrop{
++      position:absolute;
++      inset:0;
++      background:rgba(0,0,0,.7);
++    }
++    .photo-dialog{
++      position:relative;
++      z-index:1;
++      width:min(92vw, 1000px);
++      max-height:90vh;
++      margin:5vh auto;
++      background:#fff;
++      border-radius:16px;
++      padding:14px;
++      box-shadow:0 20px 60px rgba(0,0,0,.35);
++    }
++    .photo-dialog img{
++      display:block;
++      width:100%;
++      max-height:80vh;
++      object-fit:contain;
++      border-radius:12px;
++      background:#f8fafc;
++    }
++    .photo-close{
++      position:absolute;
++      top:10px;
++      right:10px;
++      width:auto;
++      padding:8px 12px;
++      border:none;
++      border-radius:999px;
++      background:var(--navy);
++      color:#fff;
++      font-weight:800;
++      cursor:pointer;
++    }
++    .photo-preview-btn{
++      cursor:pointer;
++      font:inherit;
++    }
++
++    @media (max-width:520px){
++      .topbar{ align-items:flex-start; }
++      .nav{ width:100%; }
++      .nav-link{ flex:1 1 auto; text-align:center; }
++    }
++
++    @media (max-width:420px){
++      .item{ flex-direction:column; align-items:stretch; }
++      .btn{ width:100%; justify-content:center; }
++    }
++
++    footer{ text-align:center; color:var(--muted); font-size:12px; margin-top:14px; }
++  </style>
++</head>
++
++<body>
++<header class="topbar">
++  <div class="brand">
++    <div class="rv-icon">
++      <img src="icon.PNG" alt="RV-12iS" style="width:34px;height:34px;object-fit:contain;">
++    </div>
++    <div>
++      <div class="brand-title">Ignite Aviation</div>
++      <div class="brand-sub">RV-12iS Tools</div>
++    </div>
++  </div>
++  <nav class="nav">
++    <a class="nav-link" href="index.html">Parts Finder</a>
++    <a class="nav-link" href="bags.html">Bags</a>
++    <a class="nav-link" href="tools.html">Tools</a>
++    <a class="nav-link" href="manuals.html">Manuals</a>
++    <a class="nav-link" href="admin.html">Admin</a>
++  </nav>
++</header>
++
++<main class="wrap">
++  <section class="hero">
++    <h1>Manuals & References</h1>
++    <p class="muted">Tap a section to expand. This page now points to the uploaded local PDFs so the manuals stay available from this app.</p>
++  </section>
++
++  <section class="accordion">
++    <details>
++      <summary>
++        Van’s RV-12iS — Construction Sections
++        <div class="chev">⌄</div>
++      </summary>
++      <div class="content">
++        <div class="list">
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 01iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 01iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/01iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 02iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 02iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/02iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 03iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 03iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/03iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 04iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 04_12iS-U.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/04_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Section 5: Construction Basics</div>
++              <div class="sub">Van’s construction reference PDF • Manual Section 5.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/Manual%20Section%205.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 06iS/U: Vertical Stabilizer</div>
++              <div class="sub">RV-12iS construction plans PDF • 06_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/06_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 07iS/U: Rudder</div>
++              <div class="sub">RV-12iS construction plans PDF • 07_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/07_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 08iS/U: Anti-Servo Tab</div>
++              <div class="sub">RV-12iS construction plans PDF • 08_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/08_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 09iS/U: Stabilator</div>
++              <div class="sub">RV-12iS construction plans PDF • 09_12iS-U.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/09_12iS-U.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 10iS/U: Tailcone</div>
++              <div class="sub">RV-12iS construction plans PDF • 10iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/10iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 12A</div>
++              <div class="sub">RV-12iS construction plans PDF • 12A_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/12A_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 13: Spar Assembly</div>
++              <div class="sub">RV-12iS construction plans PDF • 13_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/13_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 14: Rear Spar, Stub Spar, Hinge Brackets</div>
++              <div class="sub">RV-12iS construction plans PDF • 14_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/14_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 15: Wing Ribs</div>
++              <div class="sub">RV-12iS construction plans PDF • 15_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/15_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 16iS/U: Stall Warning</div>
++              <div class="sub">RV-12iS construction plans PDF • 16iS-U_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/16iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 17: Wing Skins</div>
++              <div class="sub">RV-12iS construction plans PDF • 17_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/17_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 18: Flaperon</div>
++              <div class="sub">RV-12iS construction plans PDF • 18_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/18_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 20iS/U: Center Section Bulkhead</div>
++              <div class="sub">RV-12iS construction plans PDF • 20iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/20iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 21iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 21iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/21iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 22iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 22iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/22iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 23iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 23iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/23iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 24iS/U — Updated</div>
++              <div class="sub">RV-12iS construction plans PDF • 24iS-U_12iS UPDATED.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/24iS-U_12iS%20UPDATED.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 25iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 25iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/25iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 26iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 26iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/26iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 27iS</div>
++              <div class="sub">RV-12iS construction plans PDF • 27iS_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/27iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 28iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 28iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/28iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 29iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 29iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/29iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 32iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 32iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/32iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 35iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 35iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/35iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 36iS/U</div>
++              <div class="sub">RV-12iS construction plans PDF • 36iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/36iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 37iS/U: Cowling</div>
++              <div class="sub">RV-12iS construction plans PDF • 37iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/37iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 38iS/U: Airframe Assembly</div>
++              <div class="sub">RV-12iS construction plans PDF • 38iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/38iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 39iS/U: Canopy</div>
++              <div class="sub">RV-12iS construction plans PDF • 39iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/39iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 40iS/U: Lighting</div>
++              <div class="sub">RV-12iS construction plans PDF • 40iS-U_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/40iS-U_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 42MiS/U: Common Electrical</div>
++              <div class="sub">RV-12iS construction plans PDF • 42MiS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/42MiS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 42NiS</div>
++              <div class="sub">RV-12iS construction plans PDF • 42NiS_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/42NiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 44BiS</div>
++              <div class="sub">RV-12iS construction plans PDF • 44BiS_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/44BiS_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
+               <div class="title">Sec 45iS/U: Firewall Mounted Components</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/45iS-U-Firewall-Mounted-Componets.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-           <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 46iS/U: Engine Install</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/04/46iS_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-           <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 47iS/U: Spinner & Propeller</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2025/01/47iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 48iS/U: Exhaust System</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2022/10/48iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 49iS: Engine Controls</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.stewartaircraft.net/RV12/KAI-121154/49iS-iS-Engine-Controls.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Sec 50iS/U: Cooling & Heating System</div>
+-              <div class="sub">Van’s official plans PDF</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2021/04/50iS-U_12iS.pdf" target="_blank" rel="noopener">Open
+-              <svg viewBox="0 0 24 24" fill="none"><path d="M14 5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 14v5H5V5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+-            </a>
+-          </div>
+-          <!-- ALL OTHER SECTIONS YOU PROVIDED GO HERE UNCHANGED -->
+-          <!-- (I preserved your structure — just paste the rest in the same pattern) -->
+-
+-        </div>
+-      </div>
+-    </details>
+-
+-    <!-- ROTAX -->
+-    <details>
+-      <summary>
+-        Rotax 912 iS
+-        <div class="chev">⌄</div>
+-      </summary>
+-      <div class="content">
+-        <div class="list">
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Maintenance Manual</div>
+-              <div class="sub">Rotax maintenance reference</div>
+-            </div>
+-            <a class="btn" href="PASTE_LINK_HERE" target="_blank">Open</a>
+-          </div>
+-        </div>
+-      </div>
+-    </details>
+-
+-    <!-- AVIONICS -->
+-    <details>
+-      <summary>
+-        Avionics
+-        <div class="chev">⌄</div>
+-      </summary>
+-      <div class="content">
+-        <div class="list">
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Garmin / Dynon Manual</div>
+-              <div class="sub">Aircraft avionics reference</div>
+-            </div>
+-            <a class="btn" href="PASTE_LINK_HERE" target="_blank">Open</a>
+-          </div>
+-        </div>
+-      </div>
+-    </details>
+-
+-    <!-- SHOP -->
+-    <details>
+-      <summary>
+-        Shop & Safety
+-        <div class="chev">⌄</div>
+-      </summary>
+-      <div class="content">
+-        <div class="list">
+-          <div class="item">
+-            <div class="left">
+-              <div class="title">Rivet & Torque Reference</div>
+-              <div class="sub">Quick reference sheet</div>
+-            </div>
+-            <a class="btn" href="https://www.vansaircraft.com/wp-content/uploads/2019/01/RV-ALL_05.pdf" target="_blank">Open</a>
+-          </div>
+-        </div>
+-      </div>
+-    </details>
+-
+-  </section>
+-
+-  <footer>Ignite Aviation • Manuals hub</footer>
+-</main>
+-  <script src="sw-register.js"></script>
+-</body>
+-</html>
++              <div class="sub">RV-12iS construction plans PDF • 45iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/45iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 46iS: Engine Install</div>
++              <div class="sub">RV-12iS construction plans PDF • 46iS_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/46iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 47iS/U: Spinner & Propeller</div>
++              <div class="sub">RV-12iS construction plans PDF • 47iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/47iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 48iS/U: Exhaust System</div>
++              <div class="sub">RV-12iS construction plans PDF • 48iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/48iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 49iS: Engine Controls</div>
++              <div class="sub">RV-12iS construction plans PDF • 49iS_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/49iS_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 50iS/U: Cooling & Heating System</div>
++              <div class="sub">RV-12iS construction plans PDF • 50iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/50iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 51AiS/U: Placards & Documentation</div>
++              <div class="sub">Placards and documentation plans PDF • 51AiS-U.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/51AiS-U.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 52: Towbar</div>
++              <div class="sub">Towbar plans PDF • 52_12.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/52_12.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Sec 55iS/U: Winterization Kit</div>
++              <div class="sub">Winterization kit plans PDF • 55iS-U_12iS.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/55iS-U_12iS.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++        </div>
++      </div>
++    </details>
++    <details>
++      <summary>
++        RV-12iS Operations & Maintenance
++        <div class="chev">⌄</div>
++      </summary>
++      <div class="content">
++        <div class="list">
++          <div class="item">
++            <div class="left">
++              <div class="title">Pilot’s Operating Handbook — Rev 13</div>
++              <div class="sub">RV-12iS reference PDF • RV-12iS POH_Rev13.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/RV-12iS%20POH_Rev13.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Maintenance Manual — Rev 6</div>
++              <div class="sub">RV-12iS reference PDF • RV-12iS MM_Rev6_compressed.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/RV-12iS%20MM_Rev6_compressed.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Production Acceptance Procedures — Rev 3</div>
++              <div class="sub">RV-12iS reference PDF • RV-12iS PAP_Rev3.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/RV-12iS%20PAP_Rev3.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++          <div class="item">
++            <div class="left">
++              <div class="title">Flight Training Supplement — Rev 8</div>
++              <div class="sub">RV-12iS reference PDF • RV-12iS FTS_Rev8.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/RV-12iS%20FTS_Rev8.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++        </div>
++      </div>
++    </details>
++    <details>
++      <summary>
++        Rotax 912 iS
++        <div class="chev">⌄</div>
++      </summary>
++      <div class="content">
++        <div class="list">
++          <div class="item">
++            <div class="left">
++              <div class="title">912 i Series Installation Manual — Ed. 2 Rev. 1</div>
++              <div class="sub">Rotax 912 iS reference PDF • IM_912 i Series_ED2_R1.pdf</div>
++            </div>
++            <a class="btn" href="maunuals/IM_912%20i%20Series_ED2_R1.pdf" target="_blank" rel="noopener">Open</a>
++          </div>
++        </div>
++      </div>
++    </details>
++    <details>
++      <summary>
++        Shop & Safety
++        <div class="chev">⌄</div>
++      </summary>
++      <div class="content">
++        <div class="list">
++          <div class="item">
++            <div class="left">
++              <div class="title">Rivet & Torque Screenshot</div>
++              <div class="sub">Bundled PNG quick view for shop torque and riveting specs</div>
++            </div>
++            <button class="btn photo-preview-btn" type="button" data-photo="maunuals/rivet-torque-reference.png">Open</button>
++          </div>
++        </div>
++      </div>
++    </details>
++  </section>
++
++  <footer>Ignite Aviation • Manuals hub</footer>
++</main>
++  <script>
++    document.addEventListener('DOMContentLoaded', () => {
++      const photoModal = document.getElementById("photoModal");
++      const photoModalImg = document.getElementById("photoModalImg");
++      const photoClose = document.getElementById("photoClose");
++      const photoBackdrop = document.getElementById("photoBackdrop");
++
++      function openPhotoModal(url) {
++        if (!photoModalImg || !photoModal) return;
++        photoModalImg.src = url;
++        photoModal.classList.remove("hidden");
++      }
++
++      function closePhotoModal() {
++        if (!photoModalImg || !photoModal) return;
++        photoModalImg.src = "";
++        photoModal.classList.add("hidden");
++      }
++
++      document.addEventListener("click", (e) => {
++        const btn = e.target.closest(".photo-preview-btn");
++        if (btn) openPhotoModal(btn.dataset.photo);
++      });
++
++      if (photoClose) photoClose.addEventListener("click", closePhotoModal);
++      if (photoBackdrop) photoBackdrop.addEventListener("click", closePhotoModal);
++
++      document.addEventListener("keydown", (e) => {
++        if (e.key === "Escape") closePhotoModal();
++      });
++    });
++  </script>
++  <div id="photoModal" class="photo-modal hidden">
++    <div class="photo-backdrop" id="photoBackdrop"></div>
++    <div class="photo-dialog">
++      <button id="photoClose" class="photo-close" type="button">✕</button>
++      <img id="photoModalImg" src="" alt="Rivet and torque reference screenshot" />
++    </div>
++  </div>
++  <script src="sw-register.js"></script>
++</body>
++</html>
