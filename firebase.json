@@ -8,6 +8,7 @@
       "**/node_modules/**",
       "apps-scrip/**"
     ],
-    "cleanUrls": false
+    "cleanUrls": false,
+    "target": "human-slot-9353c"
   }
 }
