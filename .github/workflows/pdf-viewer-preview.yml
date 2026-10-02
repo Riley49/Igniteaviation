@@ -1,0 +1,27 @@
+name: PDF viewer preview
+
+on:
+  push:
+    branches:
+      - preview/pdf-popout
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy isolated test site
+        id: hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: human-slot
+          channelId: pdf-popout
+          expires: 7d
+      - name: Show preview link
+        env:
+          PREVIEW_URL: ${{ steps.hosting.outputs.details_url }}
+        run: echo "Test the PDF viewer at $PREVIEW_URL/manuals.html" >> "$GITHUB_STEP_SUMMARY"
