@@ -162,6 +162,7 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      flex-wrap:wrap;
       padding:calc(10px + env(safe-area-inset-top)) 12px 10px;
       background:linear-gradient(180deg,var(--navy),var(--navy-2));
       color:#fff;
@@ -173,6 +174,8 @@
       overflow:hidden;
       text-overflow:ellipsis;
       white-space:nowrap;
+      flex:1 1 160px;
+      min-width:0;
     }
     .manual-actions{
       display:flex;
@@ -181,7 +184,8 @@
       flex:0 0 auto;
     }
     .manual-close,
-    .manual-external{
+    .manual-external,
+    .manual-zoom-button{
       min-width:44px;
       min-height:44px;
       display:inline-flex;
@@ -205,11 +209,24 @@
       padding:0 12px;
       font-size:13px;
     }
+    .manual-zoom-button{
+      padding:0;
+      font-size:22px;
+      line-height:1;
+    }
+    .manual-zoom-level{
+      min-width:44px;
+      text-align:center;
+      font-size:12px;
+      font-weight:900;
+      font-variant-numeric:tabular-nums;
+    }
     .manual-viewer{
       flex:1 1 auto;
       min-height:0;
       overflow:auto;
       -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;
       padding:12px;
       background:#e5e7eb;
     }
@@ -225,7 +242,8 @@
     }
     .manual-page{
       display:block;
-      width:100%;
+      width:auto;
+      max-width:none;
       height:auto;
       margin:0 auto 12px;
       border-radius:8px;
@@ -768,6 +786,9 @@
       const manualClose = document.getElementById("manualClose");
       const manualExternal = document.getElementById("manualExternal");
       const manualTitle = document.getElementById("manualTitle");
+      const manualZoomOut = document.getElementById("manualZoomOut");
+      const manualZoomIn = document.getElementById("manualZoomIn");
+      const manualZoomLevel = document.getElementById("manualZoomLevel");
       const photoModal = document.getElementById("photoModal");
       const photoModalImg = document.getElementById("photoModalImg");
       const photoClose = document.getElementById("photoClose");
@@ -781,6 +802,8 @@
       let previousOverflow = "";
       let pdfLoadingTask;
       let pdfRenderTask;
+      let currentManualUrl = "";
+      let manualZoom = 1;
 
       function releaseManualPdf() {
         pdfRenderTask?.cancel();
@@ -792,6 +815,22 @@
       function setManualStatus(message) {
         if (!manualViewer) return;
         manualViewer.innerHTML = `<div class="manual-status">${message}</div>`;
+      }
+
+      function updateManualZoomLabel() {
+        if (manualZoomLevel) manualZoomLevel.textContent = `${Math.round(manualZoom * 100)}%`;
+      }
+
+      function setManualZoom(nextZoom) {
+        if (!currentManualUrl || !manualViewer) return;
+        const clampedZoom = Math.min(3, Math.max(.75, nextZoom));
+        if (Math.abs(clampedZoom - manualZoom) < .01) return;
+        manualZoom = clampedZoom;
+        updateManualZoomLabel();
+        manualRenderToken += 1;
+        releaseManualPdf();
+        manualViewer.scrollTo({ top: 0, left: 0 });
+        renderManualPdf(currentManualUrl, manualRenderToken);
       }
 
       function loadPdfJs() {
@@ -828,17 +867,17 @@
 
             const baseViewport = page.getViewport({ scale: 1 });
             const availableWidth = Math.max(manualViewer.clientWidth - 24, 280);
-            const scale = availableWidth / baseViewport.width;
-            const viewport = page.getViewport({ scale });
-            const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+            const fitScale = availableWidth / baseViewport.width;
+            const viewport = page.getViewport({ scale: fitScale * manualZoom });
+            const outputScale = Math.min(Math.max(window.devicePixelRatio || 1, 2), 3);
             const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
+            const context = canvas.getContext("2d", { alpha: false });
 
             canvas.className = "manual-page";
-            canvas.width = Math.floor(viewport.width * outputScale);
-            canvas.height = Math.floor(viewport.height * outputScale);
-            canvas.style.width = `${Math.floor(viewport.width)}px`;
-            canvas.style.height = `${Math.floor(viewport.height)}px`;
+            canvas.width = Math.ceil(viewport.width * outputScale);
+            canvas.height = Math.ceil(viewport.height * outputScale);
+            canvas.style.width = `${Math.ceil(viewport.width)}px`;
+            canvas.style.height = `${Math.ceil(viewport.height)}px`;
             manualViewer.appendChild(canvas);
 
             pdfRenderTask = page.render({
@@ -860,6 +899,9 @@
         manualOpener = document.activeElement;
         previousOverflow = document.body.style.overflow;
         releaseManualPdf();
+        currentManualUrl = url;
+        manualZoom = 1;
+        updateManualZoomLabel();
         manualExternal.href = url;
         manualTitle.textContent = label || "Manual PDF";
         manualModal.classList.remove("hidden");
@@ -875,6 +917,7 @@
         if (!manualModal || !manualViewer || manualModal.classList.contains("hidden")) return;
         manualRenderToken += 1;
         releaseManualPdf();
+        currentManualUrl = "";
         manualViewer.innerHTML = "";
         manualModal.classList.add("hidden");
         manualModal.setAttribute("aria-hidden", "true");
@@ -909,6 +952,8 @@
       });
 
       if (manualClose) manualClose.addEventListener("click", closeManualModal);
+      if (manualZoomOut) manualZoomOut.addEventListener("click", () => setManualZoom(manualZoom - .25));
+      if (manualZoomIn) manualZoomIn.addEventListener("click", () => setManualZoom(manualZoom + .25));
       if (photoClose) photoClose.addEventListener("click", closePhotoModal);
       if (photoBackdrop) photoBackdrop.addEventListener("click", closePhotoModal);
 
@@ -922,6 +967,14 @@
             e.preventDefault(); first.focus();
           }
         }
+        if (!manualModal.classList.contains("hidden") && (e.key === "+" || e.key === "=")) {
+          e.preventDefault();
+          setManualZoom(manualZoom + .25);
+        }
+        if (!manualModal.classList.contains("hidden") && e.key === "-") {
+          e.preventDefault();
+          setManualZoom(manualZoom - .25);
+        }
         if (e.key === "Escape") {
           closeManualModal();
           closePhotoModal();
@@ -933,6 +986,9 @@
     <div class="manual-toolbar">
       <div id="manualTitle" class="manual-title">Manual PDF</div>
       <div class="manual-actions">
+        <button id="manualZoomOut" class="manual-zoom-button" type="button" aria-label="Zoom out">−</button>
+        <span id="manualZoomLevel" class="manual-zoom-level" aria-live="polite">100%</span>
+        <button id="manualZoomIn" class="manual-zoom-button" type="button" aria-label="Zoom in">+</button>
         <a id="manualExternal" class="manual-external" href="#" target="_blank" rel="noopener">New tab</a>
         <button id="manualClose" class="manual-close" type="button" aria-label="Close manual">× Close</button>
       </div>
